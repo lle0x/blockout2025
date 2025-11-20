@@ -1,13 +1,15 @@
 #---------------------------------------------------------------------
 # Makefile for BlockOut
 #
-# ubuntu 12.04 LTS needed packages.
+# Ubuntu (tested on 22.04 / 24.04) build packages:
 #
-#  libgl1-mesa-swx11-dev
+#  build-essential
 #  libglu1-mesa-dev
+#  libgl1-mesa-dev
 #  libxext-dev
 #  libsdl1.2-dev
 #  libsdl-mixer1.2-dev
+#  libasound2-dev
 #
 #---------------------------------------------------------------------
 # All source files needed for the application

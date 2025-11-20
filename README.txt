@@ -28,20 +28,23 @@ Windows platform:
 
   -OpenGL
 
-Linux platform (here ubuntu packages are listed):
+Linux platform (tested on Ubuntu 22.04/24.04):
 
-  -libgl1-mesa-swx11
+  Runtime:
+  -libgl1-mesa
   -libglu1-mesa
   -libxext6
   -libsdl1.2
   -libsdl-mixer1.2
 
-  (for compilation)
-  -libgl1-mesa-swx11-dev
+  Build:
+  -build-essential
+  -libgl1-mesa-dev
   -libglu1-mesa-dev
   -libxext-dev
   -libsdl1.2-dev
   -libsdl-mixer1.2-dev
+  -libasound2-dev
 
 How to install ?
 ================
