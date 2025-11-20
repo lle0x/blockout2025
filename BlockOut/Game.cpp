@@ -19,6 +19,9 @@
 #include <time.h>
 #include <ctype.h>
 
+extern void DebugLog(const char *fmt, ...);
+extern int DebugEnabled();
+
 // Score calculation factors, used by Game::ComputeScore()
 // (coming from measurements made with the original BlockOut game)
 
@@ -116,6 +119,10 @@ void Game::SetSoundManager(SoundManager *manager) {
 int Game::Create(int width,int height) {
 
     // --------------------------------------------------------------
+
+    if(DebugEnabled()) {
+      DebugLog("Game::Create width=%d height=%d style=%d", width, height, style);
+    }
 
     // Check pit dimension
     int ok = thePit.GetWidth() * thePit.GetHeight() * thePit.GetDepth();
@@ -374,6 +381,9 @@ void Game::StartGame(int width,int height,float fTime) {
     score.date = (uint32)time(NULL);
     score.startLevel = level;
     score.setupId = setupManager->GetId();
+    if(DebugEnabled()) {
+      DebugLog("StartGame init: level=%d style=%d blockset=%d size=%dx%dx%d", level, style, setupManager->GetBlockSet(), thePit.GetWidth(), thePit.GetHeight(), thePit.GetDepth());
+    }
 
     // Get all possible polycube
     nbPossible = 0;
@@ -406,6 +416,9 @@ void Game::StartDemo(int width,int height,float fTime) {
   botPlayer.GetMoves(&thePit,&(allPolyCube[pIdx]),xPos,yPos,zPos,AIMoves,&nbAIMove);
   gameMode = GAME_DEMO;
   demoFlag = TRUE;
+  if(DebugEnabled()) {
+    DebugLog("StartDemo");
+  }
 
 }
 
@@ -418,6 +431,9 @@ void Game::StartPractice(int width,int height,float fTime) {
   // Initialiase the bot player for the Help mode
   startShowAI = 0.0f;
   botPlayer.Init(thePit.GetWidth(),thePit.GetHeight(),thePit.GetDepth(),setupManager->GetBlockSet());
+  if(DebugEnabled()) {
+    DebugLog("StartPractice");
+  }
 
 }
 
@@ -460,6 +476,12 @@ int Game::Process(BYTE *keys,float fTime) {
 
   float cSide = thePit.GetCubeSide();
   curTime = fTime;
+  static Uint32 lastProcLog = 0;
+  Uint32 now = SDL_GetTicks();
+  if(DebugEnabled() && now - lastProcLog > 1000) {
+    DebugLog("Game::Process mode=%d curTime=%.2f", gameMode, curTime);
+    lastProcLog = now;
+  }
 
   if( gameMode == GAME_OVER ) {
 

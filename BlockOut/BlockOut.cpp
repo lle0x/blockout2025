@@ -43,6 +43,15 @@ int main(int argc,char *argv[])
     return 0;
   }
 
+  if(DebugEnabled()) {
+    DebugLog("Starting BlockOut II");
+    DebugLog("BL2_HOME=%s", getenv("BL2_HOME") ? getenv("BL2_HOME") : "(unset)");
+    DebugLog("HOME=%s", getenv("HOME") ? getenv("HOME") : "(unset)");
+    DebugLog("SDL_AUDIODRIVER=%s", getenv("SDL_AUDIODRIVER") ? getenv("SDL_AUDIODRIVER") : "(unset)");
+    DebugLog("SDL_VIDEODRIVER=%s", getenv("SDL_VIDEODRIVER") ? getenv("SDL_VIDEODRIVER") : "(unset)");
+    DebugLog("LIBGL_ALWAYS_SOFTWARE=%s", getenv("LIBGL_ALWAYS_SOFTWARE") ? getenv("LIBGL_ALWAYS_SOFTWARE") : "(unset)");
+  }
+
 #ifdef WINDOWS
   InitialiseWinsock();
 #endif
@@ -128,6 +137,7 @@ int BlockOut::FrameMove()
           ZeroMemory( m_bKey, sizeof(m_bKey) );
           theGame.StartGame(m_screenWidth,m_screenHeight,m_fTime);
           mode = GAME_MODE;
+          DebugLog("Switching to GAME_MODE from menu");
           break;
         case 2: // Resize
           Resize(theSetup.GetWindowWidth() , theSetup.GetWindowHeight());
@@ -138,10 +148,12 @@ int BlockOut::FrameMove()
         case 7:
           theGame.StartDemo(m_screenWidth,m_screenHeight,m_fTime);
           mode = GAME_MODE;
+          DebugLog("Starting demo mode");
           break;
         case 8:
           theGame.StartPractice(m_screenWidth,m_screenHeight,m_fTime);
           mode = GAME_MODE;
+          DebugLog("Starting practice mode");
           break;
         case 100: // Exit
           InvalidateDeviceObjects();
@@ -195,6 +207,7 @@ int BlockOut::FrameMove()
         case 2: // Return from Demo
           ZeroMemory( m_bKey, sizeof(m_bKey) );
           mode = MENU_MODE;
+          DebugLog("Returning to MENU_MODE from demo");
           theMenu.FullRepaint();
           break;
       }

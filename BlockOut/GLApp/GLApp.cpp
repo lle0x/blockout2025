@@ -11,6 +11,8 @@
 #include <CImage.h>
 
 extern char *LID(char *fileName);
+extern void DebugLog(const char *fmt, ...);
+extern int DebugEnabled();
 
 // -------------------------------------------
 
@@ -101,6 +103,8 @@ int GLApplication::Create(int width, int height, BOOL bFullScreen, BOOL bVSync )
   }
 #endif
 
+  DebugLog("Initializing SDL (windowed=%d, vsync=%d, size=%dx%d)", m_bWindowed, m_bVSync, m_screenWidth, m_screenHeight);
+
   //Initialize SDL
   if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
   {
@@ -122,9 +126,11 @@ int GLApplication::Create(int width, int height, BOOL bFullScreen, BOOL bVSync )
     
   //Create Window
   if( !SetVideoMode() ) return GL_FAIL;
+  DebugLog("SDL video surface created");
 
   SDL_Surface *vSurf = SDL_GetVideoSurface();
   m_bitsPerPixel = vSurf->format->BitsPerPixel;
+  DebugLog("Video surface depth: %d bpp", m_bitsPerPixel);
 
   OneTimeSceneInit();
   errCode = RestoreDeviceObjects();
@@ -185,6 +191,7 @@ int GLApplication::Run() {
   m_fElapsedTime = 0.0f;
   m_fFPS         = 0.0f;
   lastTick = lastFrTick = firstTick = SDL_GetTicks();
+  Uint32 lastDebugTick = lastTick;
 
   //Wait for user exit
   while( quit == false )
@@ -214,6 +221,11 @@ int GLApplication::Run() {
      m_fTime = (float) ( fTick - firstTick ) / 1000.0f;
      m_fElapsedTime = (fTick - lastFrTick) / 1000.0f;
      lastFrTick = fTick;
+
+     if( DebugEnabled() && (fTick - lastDebugTick) > 1000 ) {
+       DebugLog("FPS=%.2f windowed=%d", m_fFPS, m_bWindowed);
+       lastDebugTick = fTick;
+     }
 
      if(!quit) errCode = FrameMove();
      if( !errCode ) quit = true;
@@ -290,4 +302,3 @@ void GLApplication::printGlError() {
 #endif
 
 }
-

@@ -18,6 +18,8 @@
 #include "Menu.h"
 #include <time.h>
 
+extern void DebugLog(const char *fmt, ...);
+extern int DebugEnabled();
 
 // ---------------------------------------------------------------------
 
@@ -82,6 +84,11 @@ int Menu::Process(BYTE *keys,float fTime) {
 
   int exitValue = 0;
   ProcessAnim(fTime);
+  static int loggedAnim = 0;
+  if (DebugEnabled() && !loggedAnim && animEnded) {
+    DebugLog("Menu animation finished; entering page logic");
+    loggedAnim = 1;
+  }
 
   if( animEnded ) {
 
@@ -90,6 +97,9 @@ int Menu::Process(BYTE *keys,float fTime) {
       SDL_Delay(50);
     }
     exitValue = selPage->Process(keys,fTime);
+    if(DebugEnabled() && exitValue!=0) {
+      DebugLog("Menu::Process exitValue=%d", exitValue);
+    }
 
   } else {
 
@@ -117,6 +127,9 @@ void Menu::ToPage(MenuPage *page) {
 void Menu::ToPage(MenuPage *page,int iParam,void *wParam) {
 
   selPage = page;
+  if (DebugEnabled()) {
+    DebugLog("Switching to menu page %p param=%d", (void*)page, iParam);
+  }
   selPage->Prepare(iParam,wParam);
   FullRepaint();
   if( soundManager )

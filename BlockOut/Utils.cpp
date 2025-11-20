@@ -19,6 +19,7 @@
 #include <math.h>
 #include <time.h>
 #include <stdio.h>
+#include <stdarg.h>
 #undef LoadImage
 #include <CImage.h>
 
@@ -38,6 +39,28 @@
 
 static char bl2Home[512];
 static char usrHome[512];
+static int debugInit = 0;
+static int debugEnabled = 0;
+
+int DebugEnabled() {
+  if (!debugInit) {
+    const char *env = getenv("BLOCKOUT_DEBUG");
+    debugEnabled = (env && env[0] != '\0');
+    debugInit = 1;
+  }
+  return debugEnabled;
+}
+
+void DebugLog(const char *fmt, ...) {
+  if (!DebugEnabled()) return;
+  va_list ap;
+  va_start(ap, fmt);
+  fprintf(stderr, "[DEBUG] ");
+  vfprintf(stderr, fmt, ap);
+  fprintf(stderr, "\n");
+  va_end(ap);
+  fflush(stderr);
+}
 
 //-----------------------------------------------------------------------------
 // Name: v()
@@ -471,4 +494,3 @@ extern char GetChar(BYTE *keys) {
   return retChar;
 
 }
-
