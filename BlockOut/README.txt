@@ -188,3 +188,17 @@ Copying
   You should have received a copy of the GNU General Public License
   along with this program; if not, write to the Free Software
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+
+Build (Ubuntu)
+==============
+
+Automated:
+- sudo ./install-ubuntu-deps.sh
+- ./build-and-run.sh (sets BL2_HOME, builds ImageLib + BlockOut, ensures data dir and placeholder assets)
+
+Manual:
+1) sudo apt-get install build-essential libglu1-mesa-dev libgl1-mesa-dev libxext-dev libsdl1.2-dev libsdl-mixer1.2-dev libasound2-dev
+2) make -C ImageLib/src
+3) make -C BlockOut _linux64=1 (add _release=1 for stripped build)
+4) Run with BL2_HOME=$(pwd)/BlockOut ./BlockOut/blockout (or use ./build-and-run.sh)
