@@ -15,7 +15,7 @@ on:
 
 jobs:
   build-release:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,8 +41,8 @@ jobs:
       - name: Package release tarball
         run: |
           RELEASE_DATE=$(date -u +%Y%m%d)
-          BRANCH="${GITHUB_REF_NAME}"
-          PKG_NAME="blockout-${BRANCH}-${RELEASE_DATE}"
+          VERSION="${GITHUB_REF_NAME}-${RELEASE_DATE}-${GITHUB_RUN_NUMBER}"
+          PKG_NAME="blockout-${VERSION}"
           mkdir -p "dist/${PKG_NAME}"
           cp BlockOut/blockout "dist/${PKG_NAME}/"
           cp -r BlockOut/images "dist/${PKG_NAME}/"
@@ -52,6 +52,7 @@ jobs:
           tar -czf "dist/${PKG_NAME}.tar.gz" -C dist "${PKG_NAME}"
           echo "PKG_NAME=${PKG_NAME}" >> "$GITHUB_ENV"
           echo "PKG_PATH=dist/${PKG_NAME}.tar.gz" >> "$GITHUB_ENV"
+          echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -60,22 +61,12 @@ jobs:
           path: ${{ env.PKG_PATH }}
 
       - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.PKG_NAME }}
-          release_name: BlockOut II ${{ github.ref_name }} ${{ env.PKG_NAME }}
+          name: BlockOut II ${{ env.PKG_NAME }}
+          files: ${{ env.PKG_PATH }}
           draft: false
           prerelease: false
-
-      - name: Upload release asset
-        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ env.PKG_PATH }}
-          asset_name: ${{ env.PKG_NAME }}.tar.gz
-          asset_content_type: application/gzip
