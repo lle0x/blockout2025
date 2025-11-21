@@ -54,8 +54,10 @@ jobs:
         run: |
           set -e
           RELEASE_DATE=$(date -u +%Y%m%d)
-          VERSION="${GITHUB_REF_NAME}-${RELEASE_DATE}-${GITHUB_RUN_NUMBER}"
-          PKG_NAME="blockout-${VERSION}-${{ matrix.distro }}"
+          BASE_VERSION="2.5"
+          # Debian version must start with a digit
+          PKG_VERSION="${BASE_VERSION}+${GITHUB_REF_NAME}-${RELEASE_DATE}-${GITHUB_RUN_NUMBER}"
+          PKG_NAME="blockout-${PKG_VERSION}-${{ matrix.distro }}"
           DEBROOT="dist/${PKG_NAME}"
           mkdir -p "${DEBROOT}/DEBIAN"
           mkdir -p "${DEBROOT}/usr/local/games/blockout"
@@ -64,7 +66,7 @@ jobs:
 
           {
             printf "Package: blockout\n"
-            printf "Version: %s\n" "${VERSION}"
+            printf "Version: %s\n" "${PKG_VERSION}"
             printf "Section: games\n"
             printf "Priority: optional\n"
             printf "Architecture: amd64\n"

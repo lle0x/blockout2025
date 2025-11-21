@@ -44,7 +44,8 @@ jobs:
       - name: Package release tarball
         run: |
           RELEASE_DATE=$(date -u +%Y%m%d)
-          VERSION="${GITHUB_REF_NAME}-${RELEASE_DATE}-${GITHUB_RUN_NUMBER}"
+          BASE_VERSION="2.5"
+          VERSION="${BASE_VERSION}-${GITHUB_REF_NAME}-${RELEASE_DATE}-${GITHUB_RUN_NUMBER}"
           PKG_NAME="blockout-${VERSION}"
           mkdir -p "dist/${PKG_NAME}"
           cp BlockOut/blockout "dist/${PKG_NAME}/"
