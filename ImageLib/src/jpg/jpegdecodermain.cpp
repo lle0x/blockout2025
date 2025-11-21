@@ -54,7 +54,7 @@ int LoadJpegImage(JPEG_IMAGE *d) {
   Pjpeg_decoder_file_stream Pinput_stream = new jpeg_decoder_file_stream();
 
   if( !Pinput_stream ) {
-    sprintf(JpegErrorMessage,"Error: Unable to allocate memory for stream object!\n", Psrc_filename);
+    snprintf(JpegErrorMessage,sizeof(JpegErrorMessage),"Error: Unable to allocate memory for stream object!\n");
     return (FALSE);    
   }
 
@@ -69,7 +69,7 @@ int LoadJpegImage(JPEG_IMAGE *d) {
 
   if( !Pd ) {
     delete Pinput_stream;
-    sprintf(JpegErrorMessage,"Error: Unable to allocate memory for decoder object!\n", Psrc_filename);
+    snprintf(JpegErrorMessage,sizeof(JpegErrorMessage),"Error: Unable to allocate memory for decoder object!\n");
     return (FALSE);    
   }
 
