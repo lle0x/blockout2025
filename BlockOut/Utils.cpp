@@ -34,6 +34,7 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <unistd.h>
 
 #endif
 
@@ -232,12 +233,17 @@ BOOL CheckEnv() {
   }
     
   char *blockoutHome = getenv("BL2_HOME");
-  if( blockoutHome==NULL ) {
-    printf("BL2_HOME environement variable if not defined !\n");
-    printf("Please set the BL2_HOME to the BlockOut II installation directory (ex: BL2_HOME=/usr/local/bl2).\n");
-    return FALSE;
+  if( blockoutHome==NULL || blockoutHome[0]=='\0' ) {
+    // Fallback to current directory if BL2_HOME is not set
+    if( getcwd(bl2Home,sizeof(bl2Home)) == NULL ) {
+      printf("BL2_HOME is not set and current directory cannot be determined.\n");
+      return FALSE;
+    }
+    printf("BL2_HOME not set, using current directory: %s\n", bl2Home);
+  } else {
+    strncpy(bl2Home , blockoutHome, sizeof(bl2Home)-1);
+    bl2Home[sizeof(bl2Home)-1] = 0;
   }
-  strcpy( bl2Home , blockoutHome );
     
   char bl2Dir[512];
   snprintf(bl2Dir,sizeof(bl2Dir),"%s/.bl2",homePath);
