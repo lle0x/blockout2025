@@ -1,0 +1,57 @@
+name: Build macOS (brew)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - development
+    paths:
+      - ".github/workflows/build-macos-brew.yml"
+      - "BlockOut/**"
+      - "ImageLib/**"
+      - "build-and-run.sh"
+      - "install-ubuntu-deps.sh"
+
+permissions:
+  contents: write
+
+jobs:
+  macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install deps (Homebrew)
+        run: |
+          brew update
+          brew install sdl sdl_mixer pkg-config
+
+      - name: Build ImageLib and BlockOut (release)
+        env:
+          CXXFLAGS: "-I/usr/local/include"
+          LDFLAGS: "-L/usr/local/lib"
+        run: |
+          make -C ImageLib/src
+          make -C BlockOut _release=1 _linux64=1
+
+      - name: Package app bundle
+        run: |
+          VERSION_BASE="2.5"
+          RELEASE_DATE=$(date -u +%Y%m%d)
+          PKG_NAME="blockout-${VERSION_BASE}-${GITHUB_REF_NAME}-${RELEASE_DATE}-${GITHUB_RUN_NUMBER}-macos"
+          mkdir -p "dist/${PKG_NAME}/BlockOut.app/Contents/MacOS"
+          mkdir -p "dist/${PKG_NAME}/BlockOut.app/Contents/Resources"
+          cp BlockOut/blockout "dist/${PKG_NAME}/BlockOut.app/Contents/MacOS/"
+          cp -r BlockOut/images BlockOut/sounds "dist/${PKG_NAME}/BlockOut.app/Contents/Resources/"
+          cp README.txt "dist/${PKG_NAME}/"
+          cp BlockOut/README.txt "dist/${PKG_NAME}/README.BlockOut.txt"
+          tar -czf "dist/${PKG_NAME}.tar.gz" -C dist "${PKG_NAME}"
+          echo "MAC_PKG=dist/${PKG_NAME}.tar.gz" >> $GITHUB_ENV
+
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: blockout-macos-${{ github.ref_name }}
+          path: ${{ env.MAC_PKG }}

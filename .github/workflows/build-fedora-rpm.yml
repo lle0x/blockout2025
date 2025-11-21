@@ -1,0 +1,108 @@
+name: Build RPM (Fedora)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - development
+    paths:
+      - ".github/workflows/build-fedora-rpm.yml"
+      - "BlockOut/**"
+      - "ImageLib/**"
+      - "build-and-run.sh"
+      - "install-ubuntu-deps.sh"
+
+permissions:
+  contents: write
+
+jobs:
+  rpm:
+    runs-on: ubuntu-24.04
+    container:
+      image: fedora:40
+    steps:
+      - name: Install tooling
+        run: |
+          dnf install -y git gcc gcc-c++ make \
+            SDL-devel SDL_mixer-devel mesa-libGL-devel mesa-libGLU-devel \
+            libXext-devel alsa-lib-devel rpm-build
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build ImageLib and BlockOut (release)
+        run: |
+          make -C ImageLib/src
+          make -C BlockOut _linux64=1 _release=1
+      - name: Build RPM
+        run: |
+          set -e
+          VERSION_BASE="2.5"
+          RELEASE_DATE=$(date -u +%Y%m%d)
+          VERSION="${VERSION_BASE}-${GITHUB_REF_NAME}-${RELEASE_DATE}-${GITHUB_RUN_NUMBER}"
+          PKGROOT=/tmp/pkgroot
+          mkdir -p ${PKGROOT}/usr/local/games/blockout
+          mkdir -p ${PKGROOT}/usr/share/applications
+          mkdir -p ${PKGROOT}/usr/share/pixmaps
+          install -m 755 BlockOut/blockout ${PKGROOT}/usr/local/games/blockout/
+          cp -r BlockOut/images ${PKGROOT}/usr/local/games/blockout/
+          cp -r BlockOut/sounds ${PKGROOT}/usr/local/games/blockout/
+          cp README.txt ${PKGROOT}/usr/local/games/blockout/
+          cp BlockOut/README.txt ${PKGROOT}/usr/local/games/blockout/README.BlockOut.txt
+          cp BlockOut/block_icon.ico ${PKGROOT}/usr/share/pixmaps/blockout.ico || true
+          cat > ${PKGROOT}/usr/share/applications/blockout.desktop <<EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=BlockOut II
+Exec=/usr/local/games/blockout/blockout
+Icon=blockout
+Terminal=false
+Categories=Game;
+EOF
+          RPMBUILD=/tmp/rpmbuild
+          mkdir -p ${RPMBUILD}/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+          tar -czf ${RPMBUILD}/SOURCES/blockout.tar.gz -C ${PKGROOT} .
+          cat > ${RPMBUILD}/SPECS/blockout.spec <<EOF
+Name:           blockout
+Version:        ${VERSION}
+Release:        1%{?dist}
+Summary:        BlockOut II packaged for Fedora
+License:        GPLv2+
+URL:            https://github.com/${GITHUB_REPOSITORY}
+Source0:        blockout.tar.gz
+BuildArch:      x86_64
+Requires:       SDL, SDL_mixer, mesa-libGL, mesa-libGLU, libXext, alsa-lib
+
+%description
+BlockOut II packaged for Fedora. Includes binary and assets.
+
+%prep
+%setup -q -c -T
+tar -xzf %{SOURCE0}
+
+%build
+# binary already built
+
+%install
+rm -rf %{buildroot}
+mkdir -p %{buildroot}
+cp -a * %{buildroot}/
+
+%files
+/usr/local/games/blockout
+/usr/share/applications/blockout.desktop
+/usr/share/pixmaps/blockout.ico
+
+%changelog
+* $(date "+%a %b %d %Y") GitHub Actions <actions@github.com> - ${VERSION}-1
+- Automated build
+EOF
+          rpmbuild --define "_topdir ${RPMBUILD}" -bb ${RPMBUILD}/SPECS/blockout.spec
+          mkdir -p dist
+          cp ${RPMBUILD}/RPMS/x86_64/*.rpm dist/
+          echo "RPM_PATH=$(ls dist/*.rpm)" >> $GITHUB_ENV
+      - name: Upload RPM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: blockout-rpm-${{ github.ref_name }}
+          path: ${{ env.RPM_PATH }}

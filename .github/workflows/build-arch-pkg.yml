@@ -1,0 +1,87 @@
+name: Build Arch Package
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - development
+    paths:
+      - ".github/workflows/build-arch-pkg.yml"
+      - "BlockOut/**"
+      - "ImageLib/**"
+      - "build-and-run.sh"
+      - "install-ubuntu-deps.sh"
+
+permissions:
+  contents: write
+
+jobs:
+  arch:
+    runs-on: ubuntu-24.04
+    container:
+      image: archlinux:latest
+    steps:
+      - name: Install base-devel and deps
+        run: |
+          pacman -Sy --noconfirm archlinux-keyring
+          pacman -Syu --noconfirm base-devel git sudo mesa glu libxext sdl sdl_mixer alsa-lib fakeroot
+          useradd -m builder
+          echo "builder ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/builder
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build (release)
+        run: |
+          sudo -u builder bash -lc "cd $PWD && make -C ImageLib/src"
+          sudo -u builder bash -lc "cd $PWD && make -C BlockOut _linux64=1 _release=1"
+      - name: Create PKGBUILD and package
+        run: |
+          VERSION_BASE="2.5"
+          RELEASE_DATE=$(date -u +%Y%m%d)
+          PKG_VERSION="${VERSION_BASE}+${GITHUB_REF_NAME}-${RELEASE_DATE}-${GITHUB_RUN_NUMBER}"
+          WORK=/home/builder/pkg
+          mkdir -p ${WORK}
+          cat > ${WORK}/PKGBUILD <<EOF
+pkgname=blockout
+pkgver=${VERSION_BASE}
+pkgrel=1
+pkgdesc="BlockOut II packaged for Arch"
+arch=('x86_64')
+depends=('sdl' 'sdl_mixer' 'mesa' 'glu' 'libxext' 'alsa-lib')
+license=('GPL2')
+source=('local::file://${PWD}/BlockOut/blockout' 'local::file://${PWD}/BlockOut/images' 'local::file://${PWD}/BlockOut/sounds' 'local::file://${PWD}/README.txt' 'local::file://${PWD}/BlockOut/README.txt' 'local::file://${PWD}/BlockOut/block_icon.ico')
+noextract=('blockout' 'images' 'sounds' 'README.txt' 'README.txt' 'block_icon.ico')
+sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
+
+package() {
+  mkdir -p "\${pkgdir}/usr/local/games/blockout"
+  install -m755 \${srcdir}/blockout "\${pkgdir}/usr/local/games/blockout/"
+  cp -r \${srcdir}/images "\${pkgdir}/usr/local/games/blockout/"
+  cp -r \${srcdir}/sounds "\${pkgdir}/usr/local/games/blockout/"
+  cp \${srcdir}/README.txt "\${pkgdir}/usr/local/games/blockout/"
+  cp \${srcdir}/README.txt "\${pkgdir}/usr/local/games/blockout/README.BlockOut.txt"
+  mkdir -p "\${pkgdir}/usr/share/applications"
+  cat > "\${pkgdir}/usr/share/applications/blockout.desktop" <<EOD
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=BlockOut II
+Exec=/usr/local/games/blockout/blockout
+Icon=blockout
+Terminal=false
+Categories=Game;
+EOD
+  mkdir -p "\${pkgdir}/usr/share/pixmaps"
+  cp \${srcdir}/block_icon.ico "\${pkgdir}/usr/share/pixmaps/blockout.ico"
+}
+EOF
+          chown -R builder:builder ${WORK}
+          sudo -u builder bash -lc "cd ${WORK} && makepkg --force --nodeps --noprepare --skippgpcheck --noextract"
+          mkdir -p dist
+          cp ${WORK}/*.pkg.tar.* dist/
+          echo "ARCH_PKG=$(ls dist/*.pkg.tar.*)" >> $GITHUB_ENV
+      - name: Upload Arch package
+        uses: actions/upload-artifact@v4
+        with:
+          name: blockout-arch-${{ github.ref_name }}
+          path: ${{ env.ARCH_PKG }}
