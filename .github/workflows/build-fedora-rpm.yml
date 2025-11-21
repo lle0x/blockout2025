@@ -27,12 +27,15 @@ jobs:
           dnf install -y git gcc gcc-c++ make \
             SDL-devel SDL_mixer-devel mesa-libGL-devel mesa-libGLU-devel \
             libXext-devel alsa-lib-devel rpm-build
+
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Build ImageLib and BlockOut (release)
         run: |
           make -C ImageLib/src
           make -C BlockOut _linux64=1 _release=1
+
       - name: Build RPM
         run: |
           set -e
@@ -41,6 +44,7 @@ jobs:
           RPM_RELEASE="${GITHUB_REF_NAME}-${RELEASE_DATE}-${GITHUB_RUN_NUMBER}"
           RPM_RELEASE=${RPM_RELEASE//[^A-Za-z0-9._]/_}
           VERSION="${VERSION_BASE}"
+
           PKGROOT=/tmp/pkgroot
           mkdir -p ${PKGROOT}/usr/local/games/blockout
           mkdir -p ${PKGROOT}/usr/share/applications
@@ -106,6 +110,7 @@ jobs:
           mkdir -p dist
           cp ${RPMBUILD}/RPMS/x86_64/*.rpm dist/
           echo "RPM_PATH=$(ls dist/*.rpm)" >> $GITHUB_ENV
+
       - name: Upload RPM artifact
         uses: actions/upload-artifact@v4
         with:
