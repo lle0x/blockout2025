@@ -18,7 +18,7 @@
 #include "Menu.h"
 
 void PageGSOptions::Prepare(int iParam,void *pParam) {
-  nbItem  = 9;
+  nbItem  = 10;
   selItem = 0;
 }
 
@@ -78,6 +78,9 @@ void PageGSOptions::Render() {
   for(;i<=FTRANS_MAX;i++)
     mParent->RenderText(21+i,8,FALSE,STR("."));
 
+  mParent->RenderText(0,9,(selItem==9),STR("Language         :"));
+  mParent->RenderText(19,9,FALSE,(char *)mParent->GetSetup()->GetLanguageName());
+
 }
 
 int PageGSOptions::Process(BYTE *keys,float fTime) {
@@ -97,6 +100,7 @@ int PageGSOptions::Process(BYTE *keys,float fTime) {
       case 6: // Sound preset
       case 7: // Frame limiter
       case 8: // Line width
+      case 9: // Language
         exitValue = ProcessKey(SDLK_RIGHT);
         break;
     }
@@ -268,6 +272,32 @@ int PageGSOptions::ProcessKey(int key) {
             else
               mParent->GetSetup()->SetLineWidth(LINEW_MAX);
             break;
+        }
+        break;
+      case 9: // Language
+        if( key==SDLK_RIGHT || key==SDLK_LEFT ) {
+          int langCount = 0;
+          const char** langs = GetAvailableLanguages(&langCount);
+          const char* currentLang = mParent->GetSetup()->GetLanguage();
+          
+          // Find current language index
+          int currentIndex = 0;
+          for(int j = 0; j < langCount; j++) {
+            if(strcmp(currentLang, langs[j]) == 0) {
+              currentIndex = j;
+              break;
+            }
+          }
+          
+          // Move to next/previous language
+          if(key == SDLK_RIGHT) {
+            currentIndex = (currentIndex + 1) % langCount;
+          } else {
+            currentIndex = (currentIndex - 1 + langCount) % langCount;
+          }
+          
+          // Set new language
+          mParent->GetSetup()->SetLanguage(langs[currentIndex]);
         }
         break;
 

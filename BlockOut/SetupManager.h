@@ -38,7 +38,7 @@
 
 #endif
 
-#define SETUP_VERSION 6
+#define SETUP_VERSION 7
 
 class SetupManager {
 
@@ -150,6 +150,11 @@ class SetupManager {
     void SetTimeout(int timeout);
     int  GetTimeout();
 
+    // Language
+    void SetLanguage(const char* lang);
+    const char* GetLanguage();
+    const char* GetLanguageName();
+
   private:
 
     int Saturate(int v,int min,int max);
@@ -185,6 +190,7 @@ class SetupManager {
     BOOL useHttpProxy;
     int32  httpTimeout;
     int32  lineWidth;
+    char language[8];
 
     SCOREREC *scoreList;
 
