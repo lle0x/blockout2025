@@ -20,7 +20,7 @@ msgid "MAIN MENU"
 msgstr "MENU PRINCIPAL"
 
 msgid "Start Game  "
-msgstr "Démarrer Jeu"
+msgstr "Demarrer Jeu"
 
 msgid "Choose Setup"
 msgstr "Choisir Configuration"
@@ -38,16 +38,16 @@ msgid "Write Setup "
 msgstr "Sauvegarder Configuration"
 
 msgid "[Done]"
-msgstr "[Terminé]"
+msgstr "[Termine]"
 
 msgid "Demo        "
-msgstr "Démonstration"
+msgstr "Demonstration"
 
 msgid "Practice    "
 msgstr "Pratique    "
 
 msgid "Credits     "
-msgstr "Crédits     "
+msgstr "Credits     "
 
 msgid "Quit        "
 msgstr "Quitter     "
@@ -57,7 +57,7 @@ msgid "OPTIONS"
 msgstr "OPTIONS"
 
 msgid "Controls          "
-msgstr "Contrôles         "
+msgstr "Controles         "
 
 msgid "Graphics & Sound  "
 msgstr "Graphiques et Son "
@@ -73,19 +73,19 @@ msgid "Sound            :"
 msgstr "Son              :"
 
 msgid "Enabled"
-msgstr "Activé"
+msgstr "Active"
 
 msgid "Disabled"
-msgstr "Désactivé"
+msgstr "Desactive"
 
 msgid "FullScreen       :"
-msgstr "Plein Écran      :"
+msgstr "Plein Ecran      :"
 
 msgid "Screen Size      :"
-msgstr "Taille d'Écran   :"
+msgstr "Taille d'Ecran   :"
 
 msgid "Window Size      :"
-msgstr "Taille de Fenêtre:"
+msgstr "Taille de Fenetre:"
 
 msgid "Rotation Speed   :"
 msgstr "Vitesse de Rotation:"
@@ -103,7 +103,7 @@ msgid "Style            :"
 msgstr "Style            :"
 
 msgid "Sound preset     :"
-msgstr "Préréglage Son   :"
+msgstr "Prereglage Son   :"
 
 msgid "Frame limiter    :"
 msgstr "Limiteur de FPS  :"
@@ -131,7 +131,7 @@ msgid "Block Set:BASIC"
 msgstr "Ensemble de Blocs:BASIQUE"
 
 msgid "Block Set:EXTENDED"
-msgstr "Ensemble de Blocs:ÉTENDU"
+msgstr "Ensemble de Blocs:ETENDU"
 
 # Setups
 msgid "[Flat Fun]"
@@ -147,17 +147,17 @@ msgid "3D Mania      "
 msgstr "Folie 3D      "
 
 msgid "[Out of Control]"
-msgstr "[Hors de Contrôle]"
+msgstr "[Hors de Controle]"
 
 msgid "Out of Control"
-msgstr "Hors de Contrôle"
+msgstr "Hors de Controle"
 
 # Game Controls
 msgid "GAME CONTROLS"
-msgstr "CONTRÔLES DU JEU"
+msgstr "CONTROLES DU JEU"
 
 msgid "[Cursor]Move [Space]Drop [P]Pause"
-msgstr "[Curseur]Déplacer [Espace]Lâcher [P]Pause"
+msgstr "[Curseur]Deplacer [Espace]Lacher [P]Pause"
 
 msgid "[AZERTY]"
 msgstr "[AZERTY]"
@@ -176,18 +176,18 @@ msgid "Auto:"
 msgstr "Auto:"
 
 msgid "Downloading..."
-msgstr "Téléchargement..."
+msgstr "Telechargement..."
 
 msgid "Download error:"
-msgstr "Erreur de téléchargement:"
+msgstr "Erreur de telechargement:"
 
 # Credits
 msgid "CREDITS"
-msgstr "CRÉDITS"
+msgstr "CREDITS"
 
 # Start Game
 msgid "START GAME"
-msgstr "DÉMARRER JEU"
+msgstr "DEMARRER JEU"
 
 msgid "Pit Width  :"
 msgstr "Largeur du Puits:"
@@ -199,14 +199,14 @@ msgid "Pit Depth  :"
 msgstr "Profondeur du Puits:"
 
 msgid "Start Level:"
-msgstr "Niveau de Départ:"
+msgstr "Niveau de Depart:"
 
 # Game messages
 msgid "PAUSED"
 msgstr "EN PAUSE"
 
 msgid "GAME OVER"
-msgstr "JEU TERMINÉ"
+msgstr "JEU TERMINE"
 
 msgid "Score:"
 msgstr "Score:"
@@ -240,7 +240,7 @@ msgid "Date"
 msgstr "Date"
 
 msgid "Upload"
-msgstr "Téléverser"
+msgstr "Televerser"
 
 msgid "Replay"
 msgstr "Rejouer"
@@ -250,7 +250,7 @@ msgstr "Supprimer"
 
 # Score Details
 msgid "SCORE DETAILS"
-msgstr "DÉTAILS DU SCORE"
+msgstr "DETAILS DU SCORE"
 
 msgid "Setup:"
 msgstr "Configuration:"
@@ -281,7 +281,7 @@ msgid "Next"
 msgstr "Suivant"
 
 msgid "Previous"
-msgstr "Précédent"
+msgstr "Precedent"
 
 msgid "Close"
 msgstr "Fermer"

@@ -23,51 +23,51 @@ msgid "Start Game  "
 msgstr "Iniciar Jogo"
 
 msgid "Choose Setup"
-msgstr "Escolher Configuração"
+msgstr "Escolher Configuracao"
 
 msgid "Hall of Fame"
-msgstr "Salão da Fama"
+msgstr "Salao da Fama"
 
 msgid "Online Score"
-msgstr "Pontuação Online"
+msgstr "Pontuacao Online"
 
 msgid "Options     "
-msgstr "Opções      "
+msgstr "Opcoes      "
 
 msgid "Write Setup "
-msgstr "Salvar Configuração"
+msgstr "Salvar Configuracao"
 
 msgid "[Done]"
-msgstr "[Concluído]"
+msgstr "[Concluido]"
 
 msgid "Demo        "
-msgstr "Demonstração"
+msgstr "Demonstracao"
 
 msgid "Practice    "
-msgstr "Prática     "
+msgstr "Pratica     "
 
 msgid "Credits     "
-msgstr "Créditos    "
+msgstr "Creditos    "
 
 msgid "Quit        "
 msgstr "Sair        "
 
 # Options Menu
 msgid "OPTIONS"
-msgstr "OPÇÕES"
+msgstr "OPCOES"
 
 msgid "Controls          "
 msgstr "Controles         "
 
 msgid "Graphics & Sound  "
-msgstr "Gráficos e Som    "
+msgstr "Graficos e Som    "
 
 msgid "HTTP              "
 msgstr "HTTP              "
 
 # Graphics & Sound Options
 msgid "GRAPHICS & SOUND"
-msgstr "GRÁFICOS E SOM"
+msgstr "GRAFICOS E SOM"
 
 msgid "Sound            :"
 msgstr "Som              :"
@@ -88,7 +88,7 @@ msgid "Window Size      :"
 msgstr "Tamanho da Janela:"
 
 msgid "Rotation Speed   :"
-msgstr "Velocidade de Rotação:"
+msgstr "Velocidade de Rotacao:"
 
 msgid "S[           ]F"
 msgstr "L[           ]R"
@@ -113,13 +113,13 @@ msgstr "Largura da Linha :"
 
 # Choose Setup
 msgid "CHOOSE SETUP"
-msgstr "ESCOLHER CONFIGURAÇÃO"
+msgstr "ESCOLHER CONFIGURACAO"
 
 msgid "Change Setup  "
-msgstr "Mudar Configuração"
+msgstr "Mudar Configuracao"
 
 msgid "CHANGE SETUP"
-msgstr "MUDAR CONFIGURAÇÃO"
+msgstr "MUDAR CONFIGURACAO"
 
 msgid "Block Set  :"
 msgstr "Conjunto de Blocos:"
@@ -128,17 +128,17 @@ msgid "Block Set:FLAT"
 msgstr "Conjunto de Blocos:PLANO"
 
 msgid "Block Set:BASIC"
-msgstr "Conjunto de Blocos:BÁSICO"
+msgstr "Conjunto de Blocos:BASICO"
 
 msgid "Block Set:EXTENDED"
 msgstr "Conjunto de Blocos:ESTENDIDO"
 
 # Setups
 msgid "[Flat Fun]"
-msgstr "[Diversão Plana]"
+msgstr "[Diversao Plana]"
 
 msgid "Flat Fun      "
-msgstr "Diversão Plana"
+msgstr "Diversao Plana"
 
 msgid "[3D Mania]"
 msgstr "[Mania 3D]"
@@ -157,20 +157,20 @@ msgid "GAME CONTROLS"
 msgstr "CONTROLES DO JOGO"
 
 msgid "[Cursor]Move [Space]Drop [P]Pause"
-msgstr "[Cursor]Mover [Espaço]Soltar [P]Pausa"
+msgstr "[Cursor]Mover [Espaco]Soltar [P]Pausa"
 
 msgid "[AZERTY]"
 msgstr "[AZERTY]"
 
 # HTTP Options
 msgid "HTTP OPTIONS"
-msgstr "OPÇÕES HTTP"
+msgstr "OPCOES HTTP"
 
 msgid "HTTP proxy:"
 msgstr "Proxy HTTP:"
 
 msgid "Home      :"
-msgstr "Início    :"
+msgstr "Inicio    :"
 
 msgid "Auto:"
 msgstr "Auto:"
@@ -183,23 +183,23 @@ msgstr "Erro no download:"
 
 # Credits
 msgid "CREDITS"
-msgstr "CRÉDITOS"
+msgstr "CREDITOS"
 
 # Start Game
 msgid "START GAME"
 msgstr "INICIAR JOGO"
 
 msgid "Pit Width  :"
-msgstr "Largura do Poço:"
+msgstr "Largura do Poco:"
 
 msgid "Pit Height :"
-msgstr "Altura do Poço:"
+msgstr "Altura do Poco:"
 
 msgid "Pit Depth  :"
-msgstr "Profundidade do Poço:"
+msgstr "Profundidade do Poco:"
 
 msgid "Start Level:"
-msgstr "Nível Inicial:"
+msgstr "Nivel Inicial:"
 
 # Game messages
 msgid "PAUSED"
@@ -209,10 +209,10 @@ msgid "GAME OVER"
 msgstr "FIM DE JOGO"
 
 msgid "Score:"
-msgstr "Pontuação:"
+msgstr "Pontuacao:"
 
 msgid "Level:"
-msgstr "Nível:"
+msgstr "Nivel:"
 
 msgid "Lines:"
 msgstr "Linhas:"
@@ -225,16 +225,16 @@ msgstr "Tempo:"
 
 # Hall of Fame
 msgid "HALL OF FAME"
-msgstr "SALÃO DA FAMA"
+msgstr "SALAO DA FAMA"
 
 msgid "Name"
 msgstr "Nome"
 
 msgid "Score"
-msgstr "Pontuação"
+msgstr "Pontuacao"
 
 msgid "Rank"
-msgstr "Classificação"
+msgstr "Classificacao"
 
 msgid "Date"
 msgstr "Data"
@@ -250,22 +250,22 @@ msgstr "Excluir"
 
 # Score Details
 msgid "SCORE DETAILS"
-msgstr "DETALHES DA PONTUAÇÃO"
+msgstr "DETALHES DA PONTUACAO"
 
 msgid "Setup:"
-msgstr "Configuração:"
+msgstr "Configuracao:"
 
 msgid "Player:"
 msgstr "Jogador:"
 
 msgid "Empty pit:"
-msgstr "Poço vazio:"
+msgstr "Poco vazio:"
 
 msgid "Yes"
 msgstr "Sim"
 
 msgid "No"
-msgstr "Não"
+msgstr "Nao"
 
 # Common
 msgid "OK"
@@ -278,7 +278,7 @@ msgid "Back"
 msgstr "Voltar"
 
 msgid "Next"
-msgstr "Próximo"
+msgstr "Proximo"
 
 msgid "Previous"
 msgstr "Anterior"
@@ -288,10 +288,10 @@ msgstr "Fechar"
 
 # Styles
 msgid "Classic"
-msgstr "Clássico"
+msgstr "Classico"
 
 msgid "Marble"
-msgstr "Mármore"
+msgstr "Marmore"
 
 msgid "Arcade"
 msgstr "Arcade"

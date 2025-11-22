@@ -17,37 +17,37 @@ msgstr ""
 
 # Main Menu
 msgid "MAIN MENU"
-msgstr "MENÚ PRINCIPAL"
+msgstr "MENU PRINCIPAL"
 
 msgid "Start Game  "
 msgstr "Iniciar Juego"
 
 msgid "Choose Setup"
-msgstr "Elegir Configuración"
+msgstr "Elegir Configuracion"
 
 msgid "Hall of Fame"
-msgstr "Salón de la Fama"
+msgstr "Salon de la Fama"
 
 msgid "Online Score"
-msgstr "Puntuación en Línea"
+msgstr "Puntuacion en Linea"
 
 msgid "Options     "
 msgstr "Opciones    "
 
 msgid "Write Setup "
-msgstr "Guardar Configuración"
+msgstr "Guardar Configuracion"
 
 msgid "[Done]"
 msgstr "[Listo]"
 
 msgid "Demo        "
-msgstr "Demostración"
+msgstr "Demostracion"
 
 msgid "Practice    "
-msgstr "Práctica    "
+msgstr "Practica    "
 
 msgid "Credits     "
-msgstr "Créditos    "
+msgstr "Creditos    "
 
 msgid "Quit        "
 msgstr "Salir       "
@@ -60,14 +60,14 @@ msgid "Controls          "
 msgstr "Controles         "
 
 msgid "Graphics & Sound  "
-msgstr "Gráficos y Sonido "
+msgstr "Graficos y Sonido "
 
 msgid "HTTP              "
 msgstr "HTTP              "
 
 # Graphics & Sound Options
 msgid "GRAPHICS & SOUND"
-msgstr "GRÁFICOS Y SONIDO"
+msgstr "GRAFICOS Y SONIDO"
 
 msgid "Sound            :"
 msgstr "Sonido           :"
@@ -82,13 +82,13 @@ msgid "FullScreen       :"
 msgstr "Pantalla Completa:"
 
 msgid "Screen Size      :"
-msgstr "Tamaño de Pantalla:"
+msgstr "Tamano de Pantalla:"
 
 msgid "Window Size      :"
-msgstr "Tamaño de Ventana:"
+msgstr "Tamano de Ventana:"
 
 msgid "Rotation Speed   :"
-msgstr "Velocidad de Rotación:"
+msgstr "Velocidad de Rotacion:"
 
 msgid "S[           ]F"
 msgstr "L[           ]R"
@@ -109,17 +109,17 @@ msgid "Frame limiter    :"
 msgstr "Limitador de FPS :"
 
 msgid "Line width       :"
-msgstr "Ancho de Línea   :"
+msgstr "Ancho de Linea   :"
 
 # Choose Setup
 msgid "CHOOSE SETUP"
-msgstr "ELEGIR CONFIGURACIÓN"
+msgstr "ELEGIR CONFIGURACION"
 
 msgid "Change Setup  "
-msgstr "Cambiar Configuración"
+msgstr "Cambiar Configuracion"
 
 msgid "CHANGE SETUP"
-msgstr "CAMBIAR CONFIGURACIÓN"
+msgstr "CAMBIAR CONFIGURACION"
 
 msgid "Block Set  :"
 msgstr "Conjunto de Bloques:"
@@ -128,23 +128,23 @@ msgid "Block Set:FLAT"
 msgstr "Conjunto de Bloques:PLANO"
 
 msgid "Block Set:BASIC"
-msgstr "Conjunto de Bloques:BÁSICO"
+msgstr "Conjunto de Bloques:BASICO"
 
 msgid "Block Set:EXTENDED"
 msgstr "Conjunto de Bloques:EXTENDIDO"
 
 # Setups
 msgid "[Flat Fun]"
-msgstr "[Diversión Plana]"
+msgstr "[Diversion Plana]"
 
 msgid "Flat Fun      "
-msgstr "Diversión Plana"
+msgstr "Diversion Plana"
 
 msgid "[3D Mania]"
-msgstr "[Manía 3D]"
+msgstr "[Mania 3D]"
 
 msgid "3D Mania      "
-msgstr "Manía 3D      "
+msgstr "Mania 3D      "
 
 msgid "[Out of Control]"
 msgstr "[Fuera de Control]"
@@ -183,7 +183,7 @@ msgstr "Error de descarga:"
 
 # Credits
 msgid "CREDITS"
-msgstr "CRÉDITOS"
+msgstr "CREDITOS"
 
 # Start Game
 msgid "START GAME"
@@ -209,13 +209,13 @@ msgid "GAME OVER"
 msgstr "JUEGO TERMINADO"
 
 msgid "Score:"
-msgstr "Puntuación:"
+msgstr "Puntuacion:"
 
 msgid "Level:"
 msgstr "Nivel:"
 
 msgid "Lines:"
-msgstr "Líneas:"
+msgstr "Lineas:"
 
 msgid "Cubes:"
 msgstr "Cubos:"
@@ -225,13 +225,13 @@ msgstr "Tiempo:"
 
 # Hall of Fame
 msgid "HALL OF FAME"
-msgstr "SALÓN DE LA FAMA"
+msgstr "SALON DE LA FAMA"
 
 msgid "Name"
 msgstr "Nombre"
 
 msgid "Score"
-msgstr "Puntuación"
+msgstr "Puntuacion"
 
 msgid "Rank"
 msgstr "Rango"
@@ -250,19 +250,19 @@ msgstr "Eliminar"
 
 # Score Details
 msgid "SCORE DETAILS"
-msgstr "DETALLES DE PUNTUACIÓN"
+msgstr "DETALLES DE PUNTUACION"
 
 msgid "Setup:"
-msgstr "Configuración:"
+msgstr "Configuracion:"
 
 msgid "Player:"
 msgstr "Jugador:"
 
 msgid "Empty pit:"
-msgstr "Pozo vacío:"
+msgstr "Pozo vacio:"
 
 msgid "Yes"
-msgstr "Sí"
+msgstr "Si"
 
 msgid "No"
 msgstr "No"
@@ -288,10 +288,10 @@ msgstr "Cerrar"
 
 # Styles
 msgid "Classic"
-msgstr "Clásico"
+msgstr "Clasico"
 
 msgid "Marble"
-msgstr "Mármol"
+msgstr "Marmol"
 
 msgid "Arcade"
 msgstr "Arcade"
@@ -305,7 +305,7 @@ msgstr "BlockOut DOS"
 
 # Frame limiters
 msgid "No Limit"
-msgstr "Sin Límite"
+msgstr "Sin Limite"
 
 msgid "50 FPS"
 msgstr "50 FPS"
