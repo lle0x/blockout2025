@@ -2,6 +2,7 @@
 // Simple 2D font
 // -----------------------------------------------
 #include "GLFont.h"
+#include "../I18n.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
