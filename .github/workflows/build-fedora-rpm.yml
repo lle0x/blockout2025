@@ -117,3 +117,18 @@ jobs:
         with:
           name: blockout-rpm-${{ github.ref_name }}
           path: ${{ env.RPM_PATH }}
+
+      - name: Calculate Release Tag
+        run: |
+          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          RELEASE_DATE=$(date -u +%Y%m%d)
+          echo "RELEASE_TAG=blockout-2.5-${{ github.ref_name }}-${RELEASE_DATE}-${SHORT_SHA}" >> $GITHUB_ENV
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/development')
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          files: ${{ env.RPM_PATH }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

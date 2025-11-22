@@ -97,3 +97,18 @@ jobs:
         with:
           name: blockout-arch-${{ github.ref_name }}
           path: dist/*.pkg.tar.*
+
+      - name: Calculate Release Tag
+        run: |
+          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          RELEASE_DATE=$(date -u +%Y%m%d)
+          echo "RELEASE_TAG=blockout-2.5-${{ github.ref_name }}-${RELEASE_DATE}-${SHORT_SHA}" >> $GITHUB_ENV
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/development')
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          files: dist/*.pkg.tar.*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

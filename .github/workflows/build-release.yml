@@ -43,9 +43,10 @@ jobs:
 
       - name: Package release tarball
         run: |
+          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
           RELEASE_DATE=$(date -u +%Y%m%d)
           BASE_VERSION="2.5"
-          VERSION="${BASE_VERSION}-${GITHUB_REF_NAME}-${RELEASE_DATE}-${GITHUB_RUN_NUMBER}"
+          VERSION="${BASE_VERSION}-${GITHUB_REF_NAME}-${RELEASE_DATE}-${SHORT_SHA}"
           PKG_NAME="blockout-${VERSION}"
           mkdir -p "dist/${PKG_NAME}"
           cp BlockOut/blockout "dist/${PKG_NAME}/"
@@ -56,6 +57,7 @@ jobs:
           tar -czf "dist/${PKG_NAME}.tar.gz" -C dist "${PKG_NAME}"
           echo "PKG_NAME=${PKG_NAME}" >> "$GITHUB_ENV"
           echo "PKG_PATH=dist/${PKG_NAME}.tar.gz" >> "$GITHUB_ENV"
+          echo "RELEASE_TAG=blockout-${VERSION}" >> "$GITHUB_ENV"
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -66,8 +68,8 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ env.PKG_NAME }}
-          name: BlockOut II ${{ env.PKG_NAME }}
+          tag_name: ${{ env.RELEASE_TAG }}
+          name: BlockOut II ${{ env.RELEASE_TAG }}
           files: ${{ env.PKG_PATH }}
           draft: false
           prerelease: false

@@ -4,7 +4,7 @@
 /*            Use an ultra fast compression method */
 /***************************************************/
 #include <stdio.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include <memory.h>
 #include <string.h>
 #include "gif.h"
