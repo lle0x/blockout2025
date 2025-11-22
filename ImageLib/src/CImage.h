@@ -18,7 +18,7 @@ public:
 	// Load an image
 	// Supports GIF , JPG or PNG format
 	// Return 1 when image has been succesfully load , 0 otherwise.
-    int LoadImage(char *FileName);
+    int LoadImage(const char *FileName);
 
 	// Get error message if LoadImage fails.
 	char *GetErrorMessage();
@@ -37,7 +37,7 @@ public:
 
     // Write a PNG file (Return an error message when fail, NULL otherwise)
     // Data are 24Bits BGR
-    static char *WritePNG(char *FileName,int width,int height,BYTE *data);
+    static char *WritePNG(const char *FileName,int width,int height,BYTE *data);
 
 private:
 

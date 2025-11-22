@@ -268,7 +268,7 @@ BOOL CheckEnv() {
 // Name: LID()
 // Desc: Locate file in the installation directory
 //-----------------------------------------------------------------------------
-char *LID(char *fileName) {
+const char *LID(const char *fileName) {
 
 #ifdef WINDOWS
   return fileName;
@@ -284,7 +284,7 @@ char *LID(char *fileName) {
 // Name: LHD()
 // Desc: Locate file in the home directory
 //-----------------------------------------------------------------------------
-char *LHD(char *fileName) {
+const char *LHD(const char *fileName) {
 
   static char ret[512];
 
