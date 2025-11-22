@@ -61,9 +61,11 @@ static const char* GetLocaleDir() {
 
 void InitI18n() {
 #ifdef ENABLE_NLS
+  bool debug = (getenv("BLOCKOUT_DEBUG") != NULL);
+
   // Set locale from environment first
   char* result = setlocale(LC_ALL, "");
-  fprintf(stderr, "[I18N] Initial setlocale(LC_ALL, \"\") result: %s\n", result ? result : "(failed)");
+  if (debug) fprintf(stderr, "[I18N] Initial setlocale(LC_ALL, \"\") result: %s\n", result ? result : "(failed)");
 
   // Try to detect system language
   // Priority: LC_ALL > LANG > LC_MESSAGES > LANGUAGE
@@ -73,10 +75,12 @@ void InitI18n() {
   const char* lc_messages = getenv("LC_MESSAGES");
   const char* language = getenv("LANGUAGE");
   
-  fprintf(stderr, "[I18N] LC_ALL: %s\n", lc_all ? lc_all : "(not set)");
-  fprintf(stderr, "[I18N] LANG: %s\n", lang ? lang : "(not set)");
-  fprintf(stderr, "[I18N] LC_MESSAGES: %s\n", lc_messages ? lc_messages : "(not set)");
-  fprintf(stderr, "[I18N] LANGUAGE: %s\n", language ? language : "(not set)");
+  if (debug) {
+    fprintf(stderr, "[I18N] LC_ALL: %s\n", lc_all ? lc_all : "(not set)");
+    fprintf(stderr, "[I18N] LANG: %s\n", lang ? lang : "(not set)");
+    fprintf(stderr, "[I18N] LC_MESSAGES: %s\n", lc_messages ? lc_messages : "(not set)");
+    fprintf(stderr, "[I18N] LANGUAGE: %s\n", language ? language : "(not set)");
+  }
   
   bool langFound = false;
   const char* detectFrom = NULL;
@@ -92,19 +96,19 @@ void InitI18n() {
     langCode[1] = detectFrom[1];
     langCode[2] = '\0';
     
-    fprintf(stderr, "[I18N] Detected language code: %s (from %s)\n", langCode, detectFrom);
+    if (debug) fprintf(stderr, "[I18N] Detected language code: %s (from %s)\n", langCode, detectFrom);
     
     // Check if it's one of our supported languages
     for (int i = 0; availableLanguages[i] != NULL; i++) {
       if (strcmp(langCode, availableLanguages[i]) == 0) {
         strncpy(currentLanguage, langCode, sizeof(currentLanguage) - 1);
         langFound = true;
-        fprintf(stderr, "[I18N] Language '%s' is supported\n", langCode);
+        if (debug) fprintf(stderr, "[I18N] Language '%s' is supported\n", langCode);
         break;
       }
     }
     
-    if (!langFound) {
+    if (!langFound && debug) {
       fprintf(stderr, "[I18N] Language '%s' not supported, falling back to English\n", langCode);
     }
   }
@@ -114,7 +118,7 @@ void InitI18n() {
     strncpy(currentLanguage, "en", sizeof(currentLanguage) - 1);
   }
   
-  fprintf(stderr, "[I18N] Current language set to: %s\n", currentLanguage);
+  if (debug) fprintf(stderr, "[I18N] Current language set to: %s\n", currentLanguage);
   
   // Set the locale to the detected language
   char localeName[32];
@@ -125,18 +129,18 @@ void InitI18n() {
            currentLanguage[0] == 'p' && currentLanguage[1] == 't' ? "BR" :
            currentLanguage[0] == 'f' && currentLanguage[1] == 'r' ? "FR" : "US");
   
-  fprintf(stderr, "[I18N] Setting locale to: %s\n", localeName);
+  if (debug) fprintf(stderr, "[I18N] Setting locale to: %s\n", localeName);
   
   result = setlocale(LC_ALL, localeName);
-  fprintf(stderr, "[I18N] setlocale(LC_ALL) result: %s\n", result ? result : "(failed)");
+  if (debug) fprintf(stderr, "[I18N] setlocale(LC_ALL) result: %s\n", result ? result : "(failed)");
   
   result = setlocale(LC_MESSAGES, localeName);
-  fprintf(stderr, "[I18N] setlocale(LC_MESSAGES) result: %s\n", result ? result : "(failed)");
+  if (debug) fprintf(stderr, "[I18N] setlocale(LC_MESSAGES) result: %s\n", result ? result : "(failed)");
   
   // IMPORTANT: Set LANGUAGE environment variable as it overrides LC_MESSAGES in GNU gettext
   // This ensures that even if LC_MESSAGES fails or is overridden, gettext knows what to use
   setenv("LANGUAGE", currentLanguage, 1);
-  fprintf(stderr, "[I18N] Set LANGUAGE environment variable to: %s\n", currentLanguage);
+  if (debug) fprintf(stderr, "[I18N] Set LANGUAGE environment variable to: %s\n", currentLanguage);
 
   // Bind text domain AFTER setting locale
   const char* localeDir = GetLocaleDir();
@@ -144,14 +148,16 @@ void InitI18n() {
   bind_textdomain_codeset("blockout", "UTF-8"); // Ensure UTF-8 output
   textdomain("blockout");
   
-  fprintf(stderr, "[I18N] Locale directory: %s\n", localeDir);
-  fprintf(stderr, "[I18N] Text domain: blockout\n");
-  
-  // Test translation
-  const char* test = gettext("MAIN MENU");
-  fprintf(stderr, "[I18N] Test translation of 'MAIN MENU': %s\n", test);
-  
-  fflush(stderr);
+  if (debug) {
+    fprintf(stderr, "[I18N] Locale directory: %s\n", localeDir);
+    fprintf(stderr, "[I18N] Text domain: blockout\n");
+    
+    // Test translation
+    const char* test = gettext("MAIN MENU");
+    fprintf(stderr, "[I18N] Test translation of 'MAIN MENU': %s\n", test);
+    
+    fflush(stderr);
+  }
 #else
   fprintf(stderr, "[I18N] NLS support not enabled (ENABLE_NLS not defined)\n");
 #endif
