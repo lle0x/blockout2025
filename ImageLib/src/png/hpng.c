@@ -1,4 +1,4 @@
-#include <malloc.h>
+#include <stdlib.h>
 #include <math.h>
 #include "png/png.h"
 #include "hpng.h"

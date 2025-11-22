@@ -15,7 +15,7 @@
   GNU General Public License for more details.
 */
 #include "BotPlayer.h"
-#include <malloc.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
