@@ -108,20 +108,6 @@ int LoadPngImage(PNG_IMAGE *d) {
 		  dst[1] = src[1];
 		  dst[2] = src[0];
 		  dst+=3;
-		  src+=bpp;
-		}
-	  }
-	}
-
-	free(data);
-	fclose(fp);
-
-
-   if (png_ptr == NULL)
-   {
-    	sprintf(PngErrorMessage,"png_create_write_struct() failed");
-      fclose(fp);
-      return PngErrorMessage;
    }
 
    info_ptr = png_create_info_struct(png_ptr);
