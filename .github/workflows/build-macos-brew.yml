@@ -51,7 +51,7 @@ jobs:
       - name: Build ImageLib and BlockOut (release)
         run: |
           make -C ImageLib/src
-          make -C BlockOut _macos=1
+          make -C BlockOut _macos=1 EXTRA_CXXFLAGS="$CXXFLAGS" EXTRA_LDFLAGS="$LDFLAGS"
 
       - name: Package app bundle
         run: |
