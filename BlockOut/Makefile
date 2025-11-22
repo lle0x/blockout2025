@@ -24,7 +24,7 @@ SRC = 	BlockOut.cpp         PageChooseSetup.cpp       PageStartGame.cpp \
 	MenuGraphics.cpp     PageMainMenu.cpp          Utils.cpp \
 	MenuGrid.cpp         PageOptions.cpp           PageChangeSetup.cpp  \
 	PageScoreDetails.cpp PageGSOptions.cpp         BotPlayer.cpp \
-	BotPlayerAI.cpp      BotMatrix.cpp \
+	BotPlayerAI.cpp      BotMatrix.cpp             I18n.cpp \
 	GLApp/GLApp.cpp  GLApp/GLFont.cpp  GLApp/GLMatrix.cpp  GLApp/GLSprite.cpp
 
 OBJ=    BlockOut.o         PageChooseSetup.o       PageStartGame.o \
@@ -36,7 +36,7 @@ OBJ=    BlockOut.o         PageChooseSetup.o       PageStartGame.o \
 	MenuGraphics.o     PageMainMenu.o          Utils.o \
 	MenuGrid.o         PageOptions.o           PageChangeSetup.o  \
 	PageScoreDetails.o PageGSOptions.o         BotPlayer.o \
-	BotPlayerAI.o      BotMatrix.o \
+	BotPlayerAI.o      BotMatrix.o             I18n.o \
 	GLApp/GLApp.o  GLApp/GLFont.o  GLApp/GLMatrix.o  GLApp/GLSprite.o
 
 #---------------------------------------------------------------------
@@ -46,8 +46,8 @@ ADD_LIBS = ../ImageLib/src/libimagelib.a
 CXX		= g++
 
 ifdef _macos
-CXXFLAGS = -O2 -DMACOS -DGL_SILENCE_DEPRECATION -c -I../ImageLib/src -I. $(shell sdl-config --cflags)
-LFLAGS = $(ADD_LIBS) $(shell sdl-config --libs) -lSDL_mixer -framework OpenGL -framework GLUT -lm
+CXXFLAGS = -O2 -DMACOS -DGL_SILENCE_DEPRECATION -DENABLE_NLS -c -I../ImageLib/src -I. $(shell sdl-config --cflags)
+LFLAGS = $(ADD_LIBS) $(shell sdl-config --libs) -lSDL_mixer -framework OpenGL -framework GLUT -lm -lintl
 else
 
 ifdef _linux64
@@ -58,7 +58,7 @@ endif
 
 ifdef _release
 
-CXXFLAGS =     -O2 -Dlinux -c \
+CXXFLAGS =     -O2 -Dlinux -DENABLE_NLS -c \
                -I/usr/include/SDL -I../ImageLib/src -I.
 
 LFLAGS   =      -Wl,--strip-all \
@@ -68,7 +68,7 @@ LFLAGS   =      -Wl,--strip-all \
 
 else
 
-CXXFLAGS =     -g -D_DEBUG -Dlinux -c \
+CXXFLAGS =     -g -D_DEBUG -Dlinux -DENABLE_NLS -c \
                -I/usr/include/SDL -I../ImageLib/src -I.
 
 LFLAGS   =      -L $(SDL_LIBS) \

@@ -16,11 +16,13 @@
 */
 
 #include "GLApp/GLApp.h"
+#include "I18n.h"
 
 #ifndef TYPESH
 #define TYPESH
 
-#define STR(x) ((char *)x)
+// For translatable UI strings
+#define STR(x) _(x)
 
 #ifdef WINDOWS
 

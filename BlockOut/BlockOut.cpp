@@ -52,6 +52,9 @@ int main(int argc,char *argv[])
     DebugLog("LIBGL_ALWAYS_SOFTWARE=%s", getenv("LIBGL_ALWAYS_SOFTWARE") ? getenv("LIBGL_ALWAYS_SOFTWARE") : "(unset)");
   }
 
+  // Initialize internationalization
+  InitI18n();
+
 #ifdef WINDOWS
   InitialiseWinsock();
 #endif
