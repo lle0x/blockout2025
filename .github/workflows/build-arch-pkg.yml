@@ -62,6 +62,7 @@ jobs:
             echo "arch=('x86_64')"
             echo "depends=('sdl' 'sdl_mixer' 'mesa' 'glu' 'libxext' 'alsa-lib')"
             echo "license=('GPL2')"
+            echo "options=('!debug')"
             echo "source=('blockout' 'images.tar.gz' 'sounds.tar.gz' 'README.txt' 'README.BlockOut.txt' 'block_icon.ico')"
             echo "sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')"
             echo ""
@@ -91,9 +92,8 @@ jobs:
           sudo -u builder bash -lc "cd ${WORK} && makepkg --force --nodeps --skippgpcheck"
           mkdir -p dist
           cp ${WORK}/*.pkg.tar.* dist/
-          echo "ARCH_PKG=$(ls dist/*.pkg.tar.*)" >> $GITHUB_ENV
       - name: Upload Arch package
         uses: actions/upload-artifact@v4
         with:
           name: blockout-arch-${{ github.ref_name }}
-          path: ${{ env.ARCH_PKG }}
+          path: dist/*.pkg.tar.*
