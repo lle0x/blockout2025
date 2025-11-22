@@ -66,12 +66,12 @@ void InitI18n() {
   bindtextdomain("blockout", localeDir);
   textdomain("blockout");
   
-  printf("[I18N] Locale directory: %s\n", localeDir);
-  printf("[I18N] Text domain: blockout\n");
+  fprintf(stderr, "[I18N] Locale directory: %s\n", localeDir);
+  fprintf(stderr, "[I18N] Text domain: blockout\n");
   
   // Try to detect system language from LANG, fallback to English
   const char* lang = getenv("LANG");
-  printf("[I18N] LANG environment variable: %s\n", lang ? lang : "(not set)");
+  fprintf(stderr, "[I18N] LANG environment variable: %s\n", lang ? lang : "(not set)");
   
   bool langFound = false;
   
@@ -81,20 +81,20 @@ void InitI18n() {
     langCode[1] = lang[1];
     langCode[2] = '\0';
     
-    printf("[I18N] Detected language code: %s\n", langCode);
+    fprintf(stderr, "[I18N] Detected language code: %s\n", langCode);
     
     // Check if it's one of our supported languages
     for (int i = 0; availableLanguages[i] != NULL; i++) {
       if (strcmp(langCode, availableLanguages[i]) == 0) {
         strncpy(currentLanguage, langCode, sizeof(currentLanguage) - 1);
         langFound = true;
-        printf("[I18N] Language '%s' is supported\n", langCode);
+        fprintf(stderr, "[I18N] Language '%s' is supported\n", langCode);
         break;
       }
     }
     
     if (!langFound) {
-      printf("[I18N] Language '%s' not supported, falling back to English\n", langCode);
+      fprintf(stderr, "[I18N] Language '%s' not supported, falling back to English\n", langCode);
     }
   }
   
@@ -103,7 +103,7 @@ void InitI18n() {
     strncpy(currentLanguage, "en", sizeof(currentLanguage) - 1);
   }
   
-  printf("[I18N] Current language set to: %s\n", currentLanguage);
+  fprintf(stderr, "[I18N] Current language set to: %s\n", currentLanguage);
   
   // Set the locale to the detected language
   char localeName[32];
@@ -114,19 +114,21 @@ void InitI18n() {
            currentLanguage[0] == 'p' && currentLanguage[1] == 't' ? "BR" :
            currentLanguage[0] == 'f' && currentLanguage[1] == 'r' ? "FR" : "US");
   
-  printf("[I18N] Setting locale to: %s\n", localeName);
+  fprintf(stderr, "[I18N] Setting locale to: %s\n", localeName);
   
   char* result = setlocale(LC_ALL, localeName);
-  printf("[I18N] setlocale(LC_ALL) result: %s\n", result ? result : "(failed)");
+  fprintf(stderr, "[I18N] setlocale(LC_ALL) result: %s\n", result ? result : "(failed)");
   
   result = setlocale(LC_MESSAGES, localeName);
-  printf("[I18N] setlocale(LC_MESSAGES) result: %s\n", result ? result : "(failed)");
+  fprintf(stderr, "[I18N] setlocale(LC_MESSAGES) result: %s\n", result ? result : "(failed)");
   
   // Test translation
   const char* test = gettext("MAIN MENU");
-  printf("[I18N] Test translation of 'MAIN MENU': %s\n", test);
+  fprintf(stderr, "[I18N] Test translation of 'MAIN MENU': %s\n", test);
+  
+  fflush(stderr);
 #else
-  printf("[I18N] NLS support not enabled (ENABLE_NLS not defined)\n");
+  fprintf(stderr, "[I18N] NLS support not enabled (ENABLE_NLS not defined)\n");
 #endif
 }
 
