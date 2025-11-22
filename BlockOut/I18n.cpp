@@ -65,27 +65,34 @@ void InitI18n() {
   char* result = setlocale(LC_ALL, "");
   fprintf(stderr, "[I18N] Initial setlocale(LC_ALL, \"\") result: %s\n", result ? result : "(failed)");
 
-  // Try to detect system language from LANG, fallback to English
+  // Try to detect system language
+  // Priority: LC_ALL > LANG > LC_MESSAGES > LANGUAGE
+  // We prioritize LANG over LC_MESSAGES/LANGUAGE to allow users to override with LANG=es ./blockout
+  const char* lc_all = getenv("LC_ALL");
   const char* lang = getenv("LANG");
+  const char* lc_messages = getenv("LC_MESSAGES");
   const char* language = getenv("LANGUAGE");
-  fprintf(stderr, "[I18N] LANG environment variable: %s\n", lang ? lang : "(not set)");
-  fprintf(stderr, "[I18N] LANGUAGE environment variable: %s\n", language ? language : "(not set)");
+  
+  fprintf(stderr, "[I18N] LC_ALL: %s\n", lc_all ? lc_all : "(not set)");
+  fprintf(stderr, "[I18N] LANG: %s\n", lang ? lang : "(not set)");
+  fprintf(stderr, "[I18N] LC_MESSAGES: %s\n", lc_messages ? lc_messages : "(not set)");
+  fprintf(stderr, "[I18N] LANGUAGE: %s\n", language ? language : "(not set)");
   
   bool langFound = false;
+  const char* detectFrom = NULL;
   
-  // Priority to LANG for detection if LANGUAGE is not set or empty
-  const char* detectFrom = lang;
-  if (language && strlen(language) >= 2) {
-      detectFrom = language;
-  }
+  if (lc_all && strlen(lc_all) >= 2) detectFrom = lc_all;
+  else if (lang && strlen(lang) >= 2) detectFrom = lang;
+  else if (lc_messages && strlen(lc_messages) >= 2) detectFrom = lc_messages;
+  else if (language && strlen(language) >= 2) detectFrom = language;
 
-  if (detectFrom && strlen(detectFrom) >= 2) {
+  if (detectFrom) {
     char langCode[3];
     langCode[0] = detectFrom[0];
     langCode[1] = detectFrom[1];
     langCode[2] = '\0';
     
-    fprintf(stderr, "[I18N] Detected language code: %s\n", langCode);
+    fprintf(stderr, "[I18N] Detected language code: %s (from %s)\n", langCode, detectFrom);
     
     // Check if it's one of our supported languages
     for (int i = 0; availableLanguages[i] != NULL; i++) {
