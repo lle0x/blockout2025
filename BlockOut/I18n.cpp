@@ -30,9 +30,55 @@ static char currentLanguage[8] = "en";
 
 static const char* availableLanguages[] = {
   "en",  // English
-  "es",  // Spanish
-  "pt",  // Portuguese
-  "fr",  // French
+  "es",  // Spanish (Español)
+  "pt",  // Portuguese (Português)
+  "fr",  // French (Français)
+  "it",  // Italian (Italiano)
+  "de",  // German (Deutsch)
+  "pl",  // Polish (Polski)
+  "ro",  // Romanian (Română)
+  "zh",  // Chinese (中文)
+  "ja",  // Japanese (日本語)
+  "ga",  // Irish (Gaeilge)
+  "el",  // Greek (Ελληνικά)
+  "nl",  // Dutch (Nederlands)
+  "da",  // Danish (Dansk)
+  "ca",  // Catalan (Català)
+  "no",  // Norwegian (Norsk)
+  "cs",  // Czech (Čeština)
+  "fi",  // Finnish (Suomi)
+  "sv",  // Swedish (Svenska)
+  "et",  // Estonian (Eesti)
+  "tr",  // Turkish (Türkçe)
+  "af",  // Afrikaans
+  "ar",  // Arabic (العربية)
+  NULL
+};
+
+static const char* languageDisplayNames[] = {
+  "English",
+  "Español",
+  "Português",
+  "Français",
+  "Italiano",
+  "Deutsch",
+  "Polski",
+  "Română",
+  "中文",
+  "日本語",
+  "Gaeilge",
+  "Ελληνικά",
+  "Nederlands",
+  "Dansk",
+  "Català",
+  "Norsk",
+  "Čeština",
+  "Suomi",
+  "Svenska",
+  "Eesti",
+  "Türkçe",
+  "Afrikaans",
+  "العربية",
   NULL
 };
 
@@ -203,6 +249,8 @@ const char* GetLocalizedAsset(const char* assetName) {
 void SetLanguage(const char* lang) {
   if (!lang || strlen(lang) < 2) return;
   
+  bool debug = (getenv("BLOCKOUT_DEBUG") != NULL);
+  
   // Validate language is supported
   bool found = false;
   for (int i = 0; availableLanguages[i] != NULL; i++) {
@@ -212,21 +260,52 @@ void SetLanguage(const char* lang) {
     }
   }
   
-  if (!found) return;
+  if (!found) {
+    if (debug) fprintf(stderr, "[I18N] SetLanguage: '%s' not supported\n", lang);
+    return;
+  }
   
   strncpy(currentLanguage, lang, sizeof(currentLanguage) - 1);
   currentLanguage[sizeof(currentLanguage) - 1] = '\0';
   
-#ifdef ENABLE_NLS
-  // Set locale
-  char locale[16];
-  snprintf(locale, sizeof(locale), "%s_%.2s.UTF-8", lang, lang);
-  setlocale(LC_ALL, locale);
+  if (debug) fprintf(stderr, "[I18N] SetLanguage: changing to '%s'\n", lang);
   
-  // Rebind text domain
+#ifdef ENABLE_NLS
+  // Set LANGUAGE environment variable (most important for gettext)
+  setenv("LANGUAGE", lang, 1);
+  if (debug) fprintf(stderr, "[I18N] Set LANGUAGE environment variable to: %s\n", lang);
+  
+  // Set locale
+  char localeName[32];
+  snprintf(localeName, sizeof(localeName), "%s_%s.UTF-8", 
+           lang, 
+           strcmp(lang, "en") == 0 ? "US" :
+           strcmp(lang, "es") == 0 ? "ES" :
+           strcmp(lang, "pt") == 0 ? "BR" :
+           strcmp(lang, "fr") == 0 ? "FR" :
+           strcmp(lang, "it") == 0 ? "IT" :
+           strcmp(lang, "de") == 0 ? "DE" :
+           strcmp(lang, "pl") == 0 ? "PL" :
+           strcmp(lang, "ro") == 0 ? "RO" :
+           strcmp(lang, "zh") == 0 ? "CN" :
+           strcmp(lang, "ja") == 0 ? "JP" : "US");
+  
+  if (debug) fprintf(stderr, "[I18N] Setting locale to: %s\n", localeName);
+  setlocale(LC_ALL, localeName);
+  setlocale(LC_MESSAGES, localeName);
+  
+  // Rebind text domain to refresh translations
   const char* localeDir = GetLocaleDir();
   bindtextdomain("blockout", localeDir);
+  bind_textdomain_codeset("blockout", "ISO-8859-1");
   textdomain("blockout");
+  
+  if (debug) {
+    fprintf(stderr, "[I18N] Text domain rebound\n");
+    const char* test = gettext("MAIN MENU");
+    fprintf(stderr, "[I18N] Test translation of 'MAIN MENU': %s\n", test);
+    fflush(stderr);
+  }
 #endif
 }
 
@@ -242,4 +321,26 @@ const char** GetAvailableLanguages(int* count) {
     }
   }
   return availableLanguages;
+}
+
+const char* GetLanguageName() {
+  // Find index of current language
+  for (int i = 0; availableLanguages[i] != NULL; i++) {
+    if (strcmp(currentLanguage, availableLanguages[i]) == 0) {
+      return languageDisplayNames[i];
+    }
+  }
+  return "English"; // Default
+}
+
+const char* GetLanguageDisplayName(const char* langCode) {
+  if (!langCode) return "English";
+  
+  // Find index of language code
+  for (int i = 0; availableLanguages[i] != NULL; i++) {
+    if (strcmp(langCode, availableLanguages[i]) == 0) {
+      return languageDisplayNames[i];
+    }
+  }
+  return "English"; // Default
 }

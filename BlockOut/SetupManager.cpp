@@ -17,6 +17,7 @@
 
 #include "SetupManager.h"
 #include <stdio.h>
+#include "I18n.h"
 
 // Converts the 975 possible game configurations to 585 configurations.
 // (By considering identical 2 configurations c1 and c2, where 
@@ -116,6 +117,7 @@ SetupManager::SetupManager() {
   httpProxyPort=0;
   useHttpProxy=FALSE;
   httpTimeout=30;
+  strcpy(language, "en");
   ResetToQwerty();
   LoadHighScore();
   LoadSetup();
@@ -360,6 +362,24 @@ void SetupManager::SetTimeout(int timeout) {
 
 int SetupManager::GetTimeout() {
   return httpTimeout;
+}
+
+
+// ------------------------------------------------
+
+void SetupManager::SetLanguage(const char* lang) {
+  if (!lang) return;
+  strncpy(language, lang, sizeof(language) - 1);
+  language[sizeof(language) - 1] = '\0';
+  ::SetLanguage(lang);
+}
+
+const char* SetupManager::GetLanguage() {
+  return language;
+}
+
+const char* SetupManager::GetLanguageName() {
+  return ::GetLanguageName();
 }
 
 // ------------------------------------------------
@@ -745,6 +765,7 @@ void SetupManager::WriteSetup() {
       fwrite(&soundType,sizeof(int32),1,file);
       fwrite(&frLimit,sizeof(int32),1,file);
       fwrite(&lineWidth,sizeof(int32),1,file);
+      fwrite(language,8,1,file);
 
     }
     fclose(file);
@@ -824,6 +845,13 @@ void SetupManager::LoadSetup() {
         if( version>=6 ) {
           // Linewidth
 		  nbRead=(DWORD)fread(&lineWidth, sizeof(int32), 1, file);
+        }
+
+        if( version>=7 ) {
+          // Language
+ nbRead=(DWORD)fread(language, 8, 1, file);
+          // Apply language setting
+          ::SetLanguage(language);
         }
       
       }

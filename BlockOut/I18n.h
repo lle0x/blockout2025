@@ -42,6 +42,12 @@ const char* GetCurrentLanguage();
 // Get list of available languages
 const char** GetAvailableLanguages(int* count);
 
+// Get current language display name
+const char* GetLanguageName();
+
+// Get display name for a language code
+const char* GetLanguageDisplayName(const char* langCode);
+
 // Get localized asset path
 const char* GetLocalizedAsset(const char* assetName);
 
