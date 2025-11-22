@@ -46,7 +46,7 @@ BlockOut II ile eğlenin...
 
 ## 📦 İndirmeler
 
-Platformunuz için en son sürümü [Sürümler sayfasından](https://github.com/lle0x/blockout2025/releases) edinin:
+Platformunuz için en son sürümü [Sürümler sayfasından](https://github.com/coderdojo-cordoba/blockout2025/releases) edinin:
 
 - **Windows**: `blockout-windows-*.zip` - Çıkartın ve `Blockout.exe` dosyasını çalıştırın
 - **Linux (Genel)**: `blockout-linux-x64-*.tar.gz` - Çıkartın ve `./blockout/blockout` dosyasını çalıştırın
@@ -235,5 +235,5 @@ Jean-Luc PONS (jlp_38@yahoo.com)
 ## 🔗 Bağlantılar
 
 - [Resmi Web Sitesi](http://www.blockout.net/blockout2)
-- [GitHub Deposu](https://github.com/lle0x/blockout2025)
+- [GitHub Deposu](https://github.com/coderdojo-cordoba/blockout2025)
 - [Kadon Enterprises](http://www.gamepuzzles.com)

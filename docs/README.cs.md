@@ -46,7 +46,7 @@ Bavte se s BlockOut II...
 
 ## 📦 Stažení
 
-Získejte nejnovější verzi pro vaši platformu ze [stránky Vydání](https://github.com/lle0x/blockout2025/releases):
+Získejte nejnovější verzi pro vaši platformu ze [stránky Vydání](https://github.com/coderdojo-cordoba/blockout2025/releases):
 
 - **Windows**: `blockout-windows-*.zip` - Rozbalte a spusťte `Blockout.exe`
 - **Linux (Obecný)**: `blockout-linux-x64-*.tar.gz` - Rozbalte a spusťte `./blockout/blockout`
@@ -235,5 +235,5 @@ Jean-Luc PONS (jlp_38@yahoo.com)
 ## 🔗 Odkazy
 
 - [Oficiální Webová Stránka](http://www.blockout.net/blockout2)
-- [GitHub Úložiště](https://github.com/lle0x/blockout2025)
+- [GitHub Úložiště](https://github.com/coderdojo-cordoba/blockout2025)
 - [Kadon Enterprises](http://www.gamepuzzles.com)

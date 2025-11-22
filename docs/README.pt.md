@@ -46,7 +46,7 @@ Divirta-se com BlockOut II...
 
 ## 📦 Downloads
 
-Obtenha a versão mais recente para sua plataforma na [página de Releases](https://github.com/lle0x/blockout2025/releases):
+Obtenha a versão mais recente para sua plataforma na [página de Releases](https://github.com/coderdojo-cordoba/blockout2025/releases):
 
 - **Windows**: `blockout-windows-*.zip` - Extraia e execute `Blockout.exe`
 - **Linux (Genérico)**: `blockout-linux-x64-*.tar.gz` - Extraia e execute `./blockout/blockout`
@@ -274,5 +274,5 @@ Jean-Luc PONS (jlp_38@yahoo.com)
 ## 🔗 Links
 
 - [Site Oficial](http://www.blockout.net/blockout2)
-- [Repositório GitHub](https://github.com/lle0x/blockout2025)
+- [Repositório GitHub](https://github.com/coderdojo-cordoba/blockout2025)
 - [Kadon Enterprises](http://www.gamepuzzles.com)

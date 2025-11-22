@@ -46,7 +46,7 @@
 
 ## 📦 Λήψεις
 
-Αποκτήστε την τελευταία έκδοση για την πλατφόρμα σας από τη [σελίδα Εκδόσεων](https://github.com/lle0x/blockout2025/releases):
+Αποκτήστε την τελευταία έκδοση για την πλατφόρμα σας από τη [σελίδα Εκδόσεων](https://github.com/coderdojo-cordoba/blockout2025/releases):
 
 - **Windows**: `blockout-windows-*.zip` - Εξαγωγή και εκτέλεση `Blockout.exe`
 - **Linux (Γενικό)**: `blockout-linux-x64-*.tar.gz` - Εξαγωγή και εκτέλεση `./blockout/blockout`
@@ -235,5 +235,5 @@ Jean-Luc PONS (jlp_38@yahoo.com)
 ## 🔗 Σύνδεσμοι
 
 - [Επίσημος Ιστότοπος](http://www.blockout.net/blockout2)
-- [Αποθετήριο GitHub](https://github.com/lle0x/blockout2025)
+- [Αποθετήριο GitHub](https://github.com/coderdojo-cordoba/blockout2025)
 - [Kadon Enterprises](http://www.gamepuzzles.com)

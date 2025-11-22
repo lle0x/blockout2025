@@ -46,7 +46,7 @@ Pidä hauskaa BlockOut II:n kanssa...
 
 ## 📦 Lataukset
 
-Hanki uusin versio alustallesi [Julkaisut-sivulta](https://github.com/lle0x/blockout2025/releases):
+Hanki uusin versio alustallesi [Julkaisut-sivulta](https://github.com/coderdojo-cordoba/blockout2025/releases):
 
 - **Windows**: `blockout-windows-*.zip` - Pura ja suorita `Blockout.exe`
 - **Linux (Yleinen)**: `blockout-linux-x64-*.tar.gz` - Pura ja suorita `./blockout/blockout`
@@ -235,5 +235,5 @@ Jean-Luc PONS (jlp_38@yahoo.com)
 ## 🔗 Linkit
 
 - [Virallinen Verkkosivusto](http://www.blockout.net/blockout2)
-- [GitHub-repositorio](https://github.com/lle0x/blockout2025)
+- [GitHub-repositorio](https://github.com/coderdojo-cordoba/blockout2025)
 - [Kadon Enterprises](http://www.gamepuzzles.com)
