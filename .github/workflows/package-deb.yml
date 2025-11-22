@@ -79,7 +79,7 @@ jobs:
           install -m 755 BlockOut/blockout "${DEBROOT}/usr/local/games/blockout/"
           cp -r BlockOut/images "${DEBROOT}/usr/local/games/blockout/"
           cp -r BlockOut/sounds "${DEBROOT}/usr/local/games/blockout/"
-          cp README.txt "${DEBROOT}/usr/local/games/blockout/"
+          cp README.md "${DEBROOT}/usr/local/games/blockout/"
           cp BlockOut/README.txt "${DEBROOT}/usr/local/games/blockout/README.BlockOut.txt"
 
           {

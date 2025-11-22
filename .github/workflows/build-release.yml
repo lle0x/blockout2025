@@ -52,7 +52,7 @@ jobs:
           cp BlockOut/blockout "dist/${PKG_NAME}/"
           cp -r BlockOut/images "dist/${PKG_NAME}/"
           cp -r BlockOut/sounds "dist/${PKG_NAME}/"
-          cp README.txt "dist/${PKG_NAME}/"
+          cp README.md "dist/${PKG_NAME}/"
           cp BlockOut/README.txt "dist/${PKG_NAME}/README.BlockOut.txt"
           tar -czf "dist/${PKG_NAME}.tar.gz" -C dist "${PKG_NAME}"
           echo "PKG_NAME=${PKG_NAME}" >> "$GITHUB_ENV"

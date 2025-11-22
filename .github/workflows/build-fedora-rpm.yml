@@ -52,7 +52,7 @@ jobs:
           install -m 755 BlockOut/blockout ${PKGROOT}/usr/local/games/blockout/
           cp -r BlockOut/images ${PKGROOT}/usr/local/games/blockout/
           cp -r BlockOut/sounds ${PKGROOT}/usr/local/games/blockout/
-          cp README.txt ${PKGROOT}/usr/local/games/blockout/
+          cp README.md ${PKGROOT}/usr/local/games/blockout/
           cp BlockOut/README.txt ${PKGROOT}/usr/local/games/blockout/README.BlockOut.txt
           cp BlockOut/block_icon.ico ${PKGROOT}/usr/share/pixmaps/blockout.ico || true
           {

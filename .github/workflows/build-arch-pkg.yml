@@ -49,7 +49,7 @@ jobs:
           cp BlockOut/blockout "${WORK}/"
           tar -czf "${WORK}/images.tar.gz" -C BlockOut images
           tar -czf "${WORK}/sounds.tar.gz" -C BlockOut sounds
-          cp README.txt "${WORK}/"
+          cp README.md "${WORK}/"
           cp BlockOut/README.txt "${WORK}/README.BlockOut.txt"
           cp BlockOut/block_icon.ico "${WORK}/"
 
@@ -63,7 +63,7 @@ jobs:
             echo "depends=('sdl' 'sdl_mixer' 'mesa' 'glu' 'libxext' 'alsa-lib')"
             echo "license=('GPL2')"
             echo "options=('!debug')"
-            echo "source=('blockout' 'images.tar.gz' 'sounds.tar.gz' 'README.txt' 'README.BlockOut.txt' 'block_icon.ico')"
+            echo "source=('blockout' 'images.tar.gz' 'sounds.tar.gz' 'README.md' 'README.BlockOut.txt' 'block_icon.ico')"
             echo "sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')"
             echo ""
             echo "package() {"
@@ -71,7 +71,7 @@ jobs:
             echo "  install -m755 \"\${srcdir}/blockout\" \"\${pkgdir}/usr/local/games/blockout/\""
             echo "  cp -r \"\${srcdir}/images\" \"\${pkgdir}/usr/local/games/blockout/\""
             echo "  cp -r \"\${srcdir}/sounds\" \"\${pkgdir}/usr/local/games/blockout/\""
-            echo "  cp \"\${srcdir}/README.txt\" \"\${pkgdir}/usr/local/games/blockout/\""
+            echo "  cp \"\${srcdir}/README.md\" \"\${pkgdir}/usr/local/games/blockout/\""
             echo "  cp \"\${srcdir}/README.BlockOut.txt\" \"\${pkgdir}/usr/local/games/blockout/README.BlockOut.txt\""
             echo "  mkdir -p \"\${pkgdir}/usr/share/applications\""
             echo "  cat > \"\${pkgdir}/usr/share/applications/blockout.desktop\" <<'EOD'"
