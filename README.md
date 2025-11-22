@@ -18,6 +18,13 @@ Have fun with BlockOut II...
 
 **http://www.blockout.net/blockout2**
 
+## 🌍 Languages / Idiomas / Langues
+
+- [English](README.md) (this file)
+- [Español](docs/README.es.md)
+- [Português](docs/README.pt.md)
+- [Français](docs/README.fr.md)
+
 ## 📦 Downloads
 
 Get the latest release for your platform from the [Releases page](https://github.com/lle0x/blockout2025/releases):
