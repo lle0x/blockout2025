@@ -34,13 +34,13 @@ jobs:
 
     - name: Build ImageLib
       run: |
-        msbuild ImageLib/src/VC2013/ImageLib.vcxproj /p:Configuration=Release /p:Platform=x64
+        msbuild ImageLib/src/VC2013/ImageLib.vcxproj /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v143
 
     - name: Build BlockOut
       run: |
         $ImageLibSrc = Resolve-Path "ImageLib/src"
         $ImageLibLib = Resolve-Path "ImageLib/src/VC2013/x64/Release"
-        msbuild BlockOut/VC2013/Blockout.vcxproj /p:Configuration=Release /p:Platform=x64 `
+        msbuild BlockOut/VC2013/Blockout.vcxproj /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v143 `
           /p:AdditionalIncludeDirectories="$ImageLibSrc;C:\SDL\SDL-1.2.15\include;C:\SDL\SDL_mixer-1.2.12\include" `
           /p:AdditionalLibraryDirectories="$ImageLibLib;C:\SDL\SDL-1.2.15\lib\x64;C:\SDL\SDL_mixer-1.2.12\lib\x64"
 
