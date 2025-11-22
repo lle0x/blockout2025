@@ -4,6 +4,9 @@
 // -------------------------------------------
 #include <SDL.h>
 #include <SDL_opengl.h>
+#ifdef MACOS
+#include <OpenGL/glu.h>
+#endif
 #include <string.h>
 #include <stdlib.h>
 
