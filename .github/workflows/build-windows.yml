@@ -37,13 +37,13 @@ jobs:
 
     - name: Build ImageLib
       run: |
-        msbuild ImageLib/src/VC2013/ImageLib.vcxproj /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v143
+        msbuild ImageLib/src/VC2022/ImageLib.vcxproj /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v143
 
     - name: Build BlockOut
       run: |
         $ImageLibSrc = Resolve-Path "ImageLib/src"
-        $ImageLibLib = Resolve-Path "ImageLib/src/VC2013/x64/Release"
-        msbuild BlockOut/VC2013/Blockout.vcxproj /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v143
+        $ImageLibLib = Resolve-Path "ImageLib/src/VC2022/x64/Release"
+        msbuild BlockOut/VC2022/Blockout.vcxproj /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v143
 
     - name: Download SDL Runtime Binaries
       run: |
@@ -61,7 +61,7 @@ jobs:
     - name: Prepare Artifacts
       run: |
         New-Item -ItemType Directory -Force -Path dist
-        Copy-Item BlockOut/VC2013/x64/Release/Blockout.exe -Destination dist/
+        Copy-Item BlockOut/VC2022/x64/Release/Blockout.exe -Destination dist/
         Copy-Item BlockOut/images -Destination dist/images -Recurse
         Copy-Item BlockOut/sounds -Destination dist/sounds -Recurse
         Copy-Item dist_sdl/SDL.dll -Destination dist/

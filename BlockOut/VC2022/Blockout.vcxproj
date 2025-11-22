@@ -95,7 +95,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>winmm.lib;Ws2_32.lib;SDL.lib;SDL_mixer.lib;ImageLib.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\ImageLib\src\VC2013\x86\Debug;C:\SDL\SDL-1.2.15\lib\x86;C:\SDL\SDL_mixer-1.2.12\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\ImageLib\src\VC2022\x86\Debug;C:\SDL\SDL-1.2.15\lib\x86;C:\SDL\SDL_mixer-1.2.12\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -115,7 +115,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>winmm.lib;Ws2_32.lib;SDL.lib;SDL_mixer.lib;ImageLib.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\ImageLib\src\VC2013\x64\Debug;C:\SDL\SDL-1.2.15\lib\x64;C:\SDL\SDL_mixer-1.2.12\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\ImageLib\src\VC2022\x64\Debug;C:\SDL\SDL-1.2.15\lib\x64;C:\SDL\SDL_mixer-1.2.12\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
     </Link>
@@ -134,7 +134,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>Shlwapi.lib;winmm.lib;Ws2_32.lib;SDL.lib;SDL_mixer.lib;ImageLib.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\ImageLib\src\VC2013\x86\Release;C:\SDL\SDL-1.2.15\lib\x86;C:\SDL\SDL_mixer-1.2.12\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\ImageLib\src\VC2022\x86\Release;C:\SDL\SDL-1.2.15\lib\x86;C:\SDL\SDL_mixer-1.2.12\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -157,7 +157,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>Shlwapi.lib;winmm.lib;Ws2_32.lib;SDL.lib;SDL_mixer.lib;ImageLib.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\ImageLib\src\VC2013\x64\Release;C:\SDL\SDL-1.2.15\lib\x64;C:\SDL\SDL_mixer-1.2.12\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\ImageLib\src\VC2022\x64\Release;C:\SDL\SDL-1.2.15\lib\x64;C:\SDL\SDL_mixer-1.2.12\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
