@@ -13,8 +13,53 @@ permissions:
   pull-requests: write
 
 jobs:
+  build-linux-tarball:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential libsdl1.2-dev libsdl-mixer1.2-dev libglu1-mesa-dev
+
+    - name: Build ImageLib
+      run: make -C ImageLib/src
+
+    - name: Build BlockOut
+      run: make -C BlockOut _linux64=1 _release=1
+
+    - name: Create tarball
+      run: |
+        SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)
+        RELEASE_DATE=$(date -u +%Y%m%d)
+        VERSION="2.5-${{ github.event.inputs.version }}-${RELEASE_DATE}-${SHORT_SHA}"
+        TARBALL_NAME="blockout-linux-x64-${VERSION}.tar.gz"
+        
+        mkdir -p dist/blockout
+        cp BlockOut/blockout dist/blockout/
+        cp -r BlockOut/images dist/blockout/
+        cp -r BlockOut/sounds dist/blockout/
+        cp README.txt dist/blockout/
+        cp BlockOut/README.txt dist/blockout/README.BlockOut.txt
+        
+        cd dist
+        tar czf ../${TARBALL_NAME} blockout/
+        cd ..
+        
+        echo "TARBALL_NAME=${TARBALL_NAME}" >> $GITHUB_ENV
+
+    - name: Upload Linux tarball artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: blockout-linux-tarball
+        path: ${{ env.TARBALL_NAME }}
+
   create-release:
     runs-on: ubuntu-latest
+    needs: build-linux-tarball
     
     steps:
     - name: Checkout repository
@@ -40,6 +85,11 @@ jobs:
         git tag -a ${{ github.event.inputs.version }} -m "Release ${{ github.event.inputs.version }}"
         git push origin ${{ github.event.inputs.version }}
 
+    - name: Download Linux tarball
+      uses: actions/download-artifact@v4
+      with:
+        name: blockout-linux-tarball
+
     - name: Wait for builds to complete
       run: |
         echo "Waiting 10 minutes for platform builds to complete..."
@@ -57,6 +107,7 @@ jobs:
           
           Choose the package for your platform:
           
+          - **Linux (Generic)**: `blockout-linux-x64-*.tar.gz` - Extract and run `./blockout/blockout`
           - **Windows**: `blockout-windows-*.zip` - Extract and run `Blockout.exe`
           - **macOS (Homebrew)**: `blockout-macos-*.tar.gz` - Extract and run the binary
           - **Ubuntu/Debian**: `blockout-*-ubuntu*.deb` - Install with `sudo dpkg -i blockout-*.deb`
@@ -69,11 +120,14 @@ jobs:
           - Fixed all platform build issues (Windows, macOS, Fedora, Arch Linux, Ubuntu/Debian)
           - macOS: Built with sdl12-compat and SDL_mixer 1.2 from source
           - Windows: Packaged with all required DLLs and assets
+          - Linux: Generic x64 tarball for any distribution
           - Ubuntu/Debian: Packages for Ubuntu 24.04, 25.04, and 25.10
           - All platforms: Automated release packaging
           
           See the full changelog in the repository.
         draft: false
         prerelease: false
+        files: |
+          blockout-linux-x64-*.tar.gz
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
