@@ -18,6 +18,32 @@ Amusez-vous bien avec BlockOut II...
 
 **http://www.blockout.net/blockout2**
 
+## 🌍 Langues / Languages / Idiomas
+
+- [English](../README.md)
+- [Español](README.es.md)
+- [Português](README.pt.md)
+- [Français](README.fr.md) (ce fichier)
+- [Italiano](README.it.md)
+- [Deutsch](README.de.md)
+- [Polski](README.pl.md)
+- [Română](README.ro.md)
+- [中文](README.zh.md)
+- [日本語](README.ja.md)
+- [Gaeilge](README.ga.md)
+- [Ελληνικά](README.el.md)
+- [Nederlands](README.nl.md)
+- [Dansk](README.da.md)
+- [Català](README.ca.md)
+- [Norsk](README.no.md)
+- [Čeština](README.cs.md)
+- [Suomi](README.fi.md)
+- [Svenska](README.sv.md)
+- [Eesti](README.et.md)
+- [Türkçe](README.tr.md)
+- [Afrikaans](README.af.md)
+- [العربية](README.ar.md)
+
 ## 📦 Téléchargements
 
 Obtenez la dernière version pour votre plateforme depuis la [page des Releases](https://github.com/lle0x/blockout2025/releases):

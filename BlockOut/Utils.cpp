@@ -293,7 +293,7 @@ char *LHD(const char *fileName) {
     snprintf(ret,sizeof(ret),"%s\\%s",usrHome,fileName);
     return ret;
   } else {
-    return fileName;
+    return (char *)fileName;
   }
 #else
   snprintf(ret,sizeof(ret),"%s/%s",usrHome,fileName);

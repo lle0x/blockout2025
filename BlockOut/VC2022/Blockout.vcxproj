@@ -198,6 +198,7 @@
     <ClCompile Include="..\GLApp\GLFont.cpp" />
     <ClCompile Include="..\GLApp\GLMatrix.cpp" />
     <ClCompile Include="..\GLApp\GLSprite.cpp" />
+    <ClCompile Include="..\I18n.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\BlockOrientation.h" />
@@ -216,6 +217,7 @@
     <ClInclude Include="..\SoundManager.h" />
     <ClInclude Include="..\Sprites.h" />
     <ClInclude Include="..\Types.h" />
+    <ClInclude Include="..\I18n.h" />
     <ClInclude Include="..\GLApp\GLApp.h" />
     <ClInclude Include="..\GLApp\GLFont.h" />
     <ClInclude Include="..\GLApp\GLMatrix.h" />
