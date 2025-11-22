@@ -108,6 +108,45 @@ int LoadPngImage(PNG_IMAGE *d) {
 		  dst[1] = src[1];
 		  dst[2] = src[0];
 		  dst+=3;
+		  src+=bpp;
+		}
+	  }
+	}
+
+	free(data);
+	fclose(fp);
+
+	return 1;
+
+}
+
+// ---------------------------------------------------------------------
+
+char *WritePngImage(const char *file_name,unsigned long width,unsigned long height,unsigned char *data) {
+
+   FILE *fp;
+   png_structp png_ptr;
+   png_infop info_ptr;
+   png_uint_32 k;
+   png_bytep *row_pointers;
+
+ 	 // ------------- Open the file
+
+   fp = fopen(file_name, "wb");
+   if (fp == NULL) {
+  	 sprintf(PngErrorMessage,"Unable to open the file %s for writting",file_name);
+     return PngErrorMessage;
+   }
+
+   // ---------------- Create PNG handle
+
+   png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING,NULL,NULL,NULL);
+
+   if (png_ptr == NULL)
+   {
+    	sprintf(PngErrorMessage,"png_create_write_struct() failed");
+      fclose(fp);
+      return PngErrorMessage;
    }
 
    info_ptr = png_create_info_struct(png_ptr);
