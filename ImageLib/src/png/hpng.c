@@ -116,31 +116,6 @@ int LoadPngImage(PNG_IMAGE *d) {
 	free(data);
 	fclose(fp);
 
-	return 1;
-
-}
-
-// ---------------------------------------------------------------------
-
-char *WritePngImage(char *file_name,unsigned long width,unsigned long height,unsigned char *data) {
-
-   FILE *fp;
-   png_structp png_ptr;
-   png_infop info_ptr;
-   png_uint_32 k;
-   png_bytep *row_pointers;
-
- 	 // ------------- Open the file
-
-   fp = fopen(file_name, "wb");
-   if (fp == NULL) {
-  	 sprintf(PngErrorMessage,"Unable to open the file %s for writting",file_name);
-     return PngErrorMessage;
-   }
-
-   // ---------------- Create PNG handle
-
-   png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING,NULL,NULL,NULL);
 
    if (png_ptr == NULL)
    {

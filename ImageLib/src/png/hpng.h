@@ -16,7 +16,7 @@ extern "C" {
 
 extern char PngErrorMessage[];
 int LoadPngImage(PNG_IMAGE *d);
-char *WritePngImage(char *file_name,unsigned long width,unsigned long height,unsigned char *data);
+char *WritePngImage(const char *file_name,unsigned long width,unsigned long height,unsigned char *data);
 
 #ifdef __cplusplus
 }

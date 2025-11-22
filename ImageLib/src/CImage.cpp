@@ -27,12 +27,12 @@ CImage::CImage() {
 
 // ------ Load image -----
 
-int CImage::LoadImage(char *FileName) {
+int CImage::LoadImage(const char *FileName) {
 
   Release();
 
   // Get extensions
-  char *p = strrchr(FileName,'.');
+  char *p = strrchr((char *)FileName,'.');
   char ext[12];
 
   if( p==NULL ) {
@@ -141,7 +141,7 @@ char *CImage::GetErrorMessage() {
 
 // ------ Write a PNG file -----------------------------
 
-char *CImage::WritePNG(char *FileName,int width,int height,BYTE *data) {
+char *CImage::WritePNG(const char *FileName,int width,int height,BYTE *data) {
   return WritePngImage(FileName,width,height,data);
 }
 
