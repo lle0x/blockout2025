@@ -61,15 +61,12 @@ static const char* GetLocaleDir() {
 
 void InitI18n() {
 #ifdef ENABLE_NLS
-  // Set locale from environment
-  setlocale(LC_ALL, "");
-  
-  // Bind text domain
+  // Bind text domain first
   const char* localeDir = GetLocaleDir();
   bindtextdomain("blockout", localeDir);
   textdomain("blockout");
   
-  // Try to detect system language, fallback to English
+  // Try to detect system language from LANG, fallback to English
   const char* lang = getenv("LANG");
   bool langFound = false;
   
@@ -93,6 +90,17 @@ void InitI18n() {
   if (!langFound) {
     strncpy(currentLanguage, "en", sizeof(currentLanguage) - 1);
   }
+  
+  // Set the locale to the detected language
+  char localeName[32];
+  snprintf(localeName, sizeof(localeName), "%s_%s.UTF-8", 
+           currentLanguage, 
+           currentLanguage[0] == 'e' && currentLanguage[1] == 'n' ? "US" :
+           currentLanguage[0] == 'e' && currentLanguage[1] == 's' ? "ES" :
+           currentLanguage[0] == 'p' && currentLanguage[1] == 't' ? "BR" :
+           currentLanguage[0] == 'f' && currentLanguage[1] == 'r' ? "FR" : "US");
+  setlocale(LC_ALL, localeName);
+  setlocale(LC_MESSAGES, localeName);
 #endif
 }
 
