@@ -1,0 +1,79 @@
+name: Create Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g., v2.5.0)'
+        required: true
+        default: 'v2.5.0'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Configure Git
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Merge development into main
+      run: |
+        git checkout main
+        git pull origin main
+        git merge origin/development -m "Release ${{ github.event.inputs.version }}: Merge development into main"
+        git push origin main
+
+    - name: Create Release Tag
+      run: |
+        git tag -a ${{ github.event.inputs.version }} -m "Release ${{ github.event.inputs.version }}"
+        git push origin ${{ github.event.inputs.version }}
+
+    - name: Wait for builds to complete
+      run: |
+        echo "Waiting 10 minutes for platform builds to complete..."
+        sleep 600
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ github.event.inputs.version }}
+        name: BlockOut II ${{ github.event.inputs.version }}
+        body: |
+          # BlockOut II ${{ github.event.inputs.version }}
+          
+          ## Downloads
+          
+          Choose the package for your platform:
+          
+          - **Windows**: `blockout-windows-*.zip` - Extract and run `Blockout.exe`
+          - **macOS (Homebrew)**: `blockout-macos-*.tar.gz` - Extract and run the binary
+          - **Ubuntu/Debian**: `blockout-*-ubuntu*.deb` - Install with `sudo dpkg -i blockout-*.deb`
+          - **Fedora/RHEL**: `blockout-*.rpm` - Install with `sudo dnf install blockout-*.rpm`
+          - **Arch Linux**: `blockout-*.pkg.tar.zst` - Install with `sudo pacman -U blockout-*.pkg.tar.zst`
+          
+          ## Changes
+          
+          This release includes:
+          - Fixed all platform build issues (Windows, macOS, Fedora, Arch Linux, Ubuntu/Debian)
+          - macOS: Built with sdl12-compat and SDL_mixer 1.2 from source
+          - Windows: Packaged with all required DLLs and assets
+          - Ubuntu/Debian: Packages for Ubuntu 24.04, 25.04, and 25.10
+          - All platforms: Automated release packaging
+          
+          See the full changelog in the repository.
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
