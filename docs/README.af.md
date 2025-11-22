@@ -46,7 +46,7 @@ Geniet BlockOut II...
 
 ## 📦 Aflaaie
 
-Kry die nuutste weergawe vir jou platform vanaf die [Vrystellings-bladsy](https://github.com/lle0x/blockout2025/releases):
+Kry die nuutste weergawe vir jou platform vanaf die [Vrystellings-bladsy](https://github.com/coderdojo-cordoba/blockout2025/releases):
 
 - **Windows**: `blockout-windows-*.zip` - Pak uit en hardloop `Blockout.exe`
 - **Linux (Generies)**: `blockout-linux-x64-*.tar.gz` - Pak uit en hardloop `./blockout/blockout`
@@ -235,5 +235,5 @@ Jean-Luc PONS (jlp_38@yahoo.com)
 ## 🔗 Skakels
 
 - [Amptelike Webwerf](http://www.blockout.net/blockout2)
-- [GitHub-bewaarplek](https://github.com/lle0x/blockout2025)
+- [GitHub-bewaarplek](https://github.com/coderdojo-cordoba/blockout2025)
 - [Kadon Enterprises](http://www.gamepuzzles.com)

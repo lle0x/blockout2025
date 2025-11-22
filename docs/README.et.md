@@ -46,7 +46,7 @@ Lõbutse BlockOut II-ga...
 
 ## 📦 Allalaadimised
 
-Hankige oma platvormile uusim versioon [Väljalasete lehelt](https://github.com/lle0x/blockout2025/releases):
+Hankige oma platvormile uusim versioon [Väljalasete lehelt](https://github.com/coderdojo-cordoba/blockout2025/releases):
 
 - **Windows**: `blockout-windows-*.zip` - Pakkige lahti ja käivitage `Blockout.exe`
 - **Linux (Üldine)**: `blockout-linux-x64-*.tar.gz` - Pakkige lahti ja käivitage `./blockout/blockout`
@@ -235,5 +235,5 @@ Jean-Luc PONS (jlp_38@yahoo.com)
 ## 🔗 Lingid
 
 - [Ametlik Veebisait](http://www.blockout.net/blockout2)
-- [GitHub Hoidla](https://github.com/lle0x/blockout2025)
+- [GitHub Hoidla](https://github.com/coderdojo-cordoba/blockout2025)
 - [Kadon Enterprises](http://www.gamepuzzles.com)

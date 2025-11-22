@@ -46,7 +46,7 @@ Bain sult as BlockOut II...
 
 ## 📦 Íoslódálacha
 
-Faigh an leagan is déanaí do d'ardán ón [leathanach Eisiúintí](https://github.com/lle0x/blockout2025/releases):
+Faigh an leagan is déanaí do d'ardán ón [leathanach Eisiúintí](https://github.com/coderdojo-cordoba/blockout2025/releases):
 
 - **Windows**: `blockout-windows-*.zip` - Bain amach agus rith `Blockout.exe`
 - **Linux (Ginearálta)**: `blockout-linux-x64-*.tar.gz` - Bain amach agus rith `./blockout/blockout`
@@ -235,5 +235,5 @@ Jean-Luc PONS (jlp_38@yahoo.com)
 ## 🔗 Naisc
 
 - [Suíomh Oifigiúil](http://www.blockout.net/blockout2)
-- [Stóras GitHub](https://github.com/lle0x/blockout2025)
+- [Stóras GitHub](https://github.com/coderdojo-cordoba/blockout2025)
 - [Kadon Enterprises](http://www.gamepuzzles.com)

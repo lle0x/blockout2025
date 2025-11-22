@@ -46,7 +46,7 @@ BlockOut II 是原版 BlockOut DOS 游戏的 OpenGL 改编版，原版游戏由 
 
 ## 📦 下载
 
-从 [发布页面](https://github.com/lle0x/blockout2025/releases) 获取适用于您平台的最新版本：
+从 [发布页面](https://github.com/coderdojo-cordoba/blockout2025/releases) 获取适用于您平台的最新版本：
 
 - **Windows**: `blockout-windows-*.zip` - 解压并运行 `Blockout.exe`
 - **Linux (通用)**: `blockout-linux-x64-*.tar.gz` - 解压并运行 `./blockout/blockout`
@@ -235,5 +235,5 @@ Jean-Luc PONS (jlp_38@yahoo.com)
 ## 🔗 链接
 
 - [官方网站](http://www.blockout.net/blockout2)
-- [GitHub 存储库](https://github.com/lle0x/blockout2025)
+- [GitHub 存储库](https://github.com/coderdojo-cordoba/blockout2025)
 - [Kadon Enterprises](http://www.gamepuzzles.com)

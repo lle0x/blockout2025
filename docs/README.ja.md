@@ -46,7 +46,7 @@ BlockOut IIをお楽しみください...
 
 ## 📦 ダウンロード
 
-[リリースページ](https://github.com/lle0x/blockout2025/releases)からプラットフォーム用の最新リリースを入手してください：
+[リリースページ](https://github.com/coderdojo-cordoba/blockout2025/releases)からプラットフォーム用の最新リリースを入手してください：
 
 - **Windows**: `blockout-windows-*.zip` - 展開して `Blockout.exe` を実行
 - **Linux (汎用)**: `blockout-linux-x64-*.tar.gz` - 展開して `./blockout/blockout` を実行
@@ -235,5 +235,5 @@ Jean-Luc PONS (jlp_38@yahoo.com)
 ## 🔗 リンク
 
 - [公式サイト](http://www.blockout.net/blockout2)
-- [GitHub リポジトリ](https://github.com/lle0x/blockout2025)
+- [GitHub リポジトリ](https://github.com/coderdojo-cordoba/blockout2025)
 - [Kadon Enterprises](http://www.gamepuzzles.com)

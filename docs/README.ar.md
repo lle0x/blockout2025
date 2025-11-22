@@ -46,7 +46,7 @@ BlockOut II هو تكييف OpenGL للعبة BlockOut DOS الأصلية الت
 
 ## 📦 التنزيلات
 
-احصل على أحدث إصدار لمنصتك من [صفحة الإصدارات](https://github.com/lle0x/blockout2025/releases):
+احصل على أحدث إصدار لمنصتك من [صفحة الإصدارات](https://github.com/coderdojo-cordoba/blockout2025/releases):
 
 - **Windows**: `blockout-windows-*.zip` - استخرج وشغّل `Blockout.exe`
 - **Linux (عام)**: `blockout-linux-x64-*.tar.gz` - استخرج وشغّل `./blockout/blockout`
@@ -235,5 +235,5 @@ Jean-Luc PONS (jlp_38@yahoo.com)
 ## 🔗 الروابط
 
 - [الموقع الرسمي](http://www.blockout.net/blockout2)
-- [مستودع GitHub](https://github.com/lle0x/blockout2025)
+- [مستودع GitHub](https://github.com/coderdojo-cordoba/blockout2025)
 - [Kadon Enterprises](http://www.gamepuzzles.com)
