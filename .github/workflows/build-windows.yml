@@ -6,10 +6,6 @@ on:
     branches:
       - main
       - development
-    paths:
-      - "BlockOut/**"
-      - "ImageLib/**"
-      - ".github/workflows/build-windows.yml"
 
 permissions:
   contents: write
