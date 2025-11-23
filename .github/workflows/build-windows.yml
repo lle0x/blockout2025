@@ -68,12 +68,6 @@ jobs:
           Copy-Item "C:\SDL\SDL_mixer-1.2.12\lib\x64\SDL_mixer.dll" -Destination dist/
         }
 
-    - name: Upload Windows artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: blockout-windows
-        path: dist/
-
     - name: Create Windows ZIP package
       run: |
         $SHORT_SHA = "${{ github.sha }}".Substring(0, 7)
@@ -83,19 +77,8 @@ jobs:
         Compress-Archive -Path dist/* -DestinationPath $ZIP_NAME
         echo "ZIP_NAME=$ZIP_NAME" >> $env:GITHUB_ENV
 
-    - name: Calculate Release Tag
-      id: tag
-      run: |
-        $SHORT_SHA = "${{ github.sha }}".Substring(0, 7)
-        $RELEASE_DATE = (Get-Date).ToUniversalTime().ToString("yyyyMMdd")
-        $VERSION = "2.5-${{ github.ref_name }}-$RELEASE_DATE-$SHORT_SHA"
-        echo "RELEASE_TAG=blockout-$VERSION" >> $env:GITHUB_ENV
-
-    - name: Upload to Release
-      uses: softprops/action-gh-release@v2
-      if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/development')
+    - name: Upload Windows artifact
+      uses: actions/upload-artifact@v4
       with:
-        tag_name: ${{ env.RELEASE_TAG }}
-        files: ${{ env.ZIP_NAME }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        name: blockout-windows
+        path: ${{ env.ZIP_NAME }}
