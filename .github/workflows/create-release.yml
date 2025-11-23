@@ -91,10 +91,6 @@ jobs:
         git tag -a ${{ github.event.inputs.version }} -m "Release ${{ github.event.inputs.version }}"
         git push origin ${{ github.event.inputs.version }}
 
-    - name: Download Linux tarball
-      uses: actions/download-artifact@v4
-      with:
-        name: blockout-linux-tarball
 
     - name: Wait for platform builds to complete
       env:
@@ -209,7 +205,6 @@ jobs:
         draft: false
         prerelease: false
         files: |
-          blockout-linux-x64-*.tar.gz
           release-artifacts/**/*
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
