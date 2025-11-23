@@ -79,7 +79,7 @@ list_workflows() {
     local response
     response=$(api_request "/repos/${REPO}/actions/workflows")
     
-    echo "$response" | jq -r '.workflows[] | "\(.id)\t\(.name)\t\(.state)\t\(.path)"' | \
+    echo "$response" | jq -r '.workflows[] | [.id, .name, .state, .path] | @tsv' | \
         while IFS=$'\t' read -r id name state path; do
             local color=$GREEN
             [ "$state" != "active" ] && color=$YELLOW
@@ -112,7 +112,7 @@ list_runs() {
         jq_filter=".workflow_runs[] | select(.name == \"$workflow_name\")"
     fi
     
-    echo "$response" | jq -r "${jq_filter} | \"\(.id)\t\(.name)\t\(.status)\t\(.conclusion // \"running\")\t\(.head_branch)\t\(.created_at)\"" | \
+    echo "$response" | jq -r "${jq_filter} | [.id, .name, .status, (.conclusion // \"running\"), .head_branch, .created_at] | @tsv" | \
         while IFS=$'\t' read -r id name status conclusion branch created; do
             local color=$YELLOW
             case "$conclusion" in
@@ -134,6 +134,7 @@ list_runs() {
 # Get details of a specific run
 get_run_details() {
     local run_id="$1"
+    local show_failed_logs="${2:-yes}"  # Default to showing failed logs
     
     echo -e "${BLUE}Workflow Run Details (ID: ${run_id}):${NC}"
     echo ""
@@ -169,20 +170,92 @@ get_run_details() {
     local jobs_response
     jobs_response=$(api_request "/repos/${REPO}/actions/runs/${run_id}/jobs")
     
-    echo "$jobs_response" | jq -r '.jobs[] | "\(.id)\t\(.name)\t\(.status)\t\(.conclusion // \"running\")"' | \
+    local has_failures=false
+    local failed_job_ids=()
+    
+    echo "$jobs_response" | jq -r '.jobs[] | [.id, .name, .status, (.conclusion // "running")] | @tsv' | \
         while IFS=$'\t' read -r job_id job_name job_status job_conclusion; do
             local job_color=$YELLOW
             case "$job_conclusion" in
                 success) job_color=$GREEN ;;
-                failure) job_color=$RED ;;
+                failure) 
+                    job_color=$RED
+                    has_failures=true
+                    ;;
                 cancelled) job_color=$YELLOW ;;
             esac
             
             echo -e "  ${job_color}${job_name}${NC}"
             echo -e "    Status: ${job_status}, Conclusion: ${job_conclusion}"
+            
+            # Store failed job IDs for later
+            if [ "$job_conclusion" = "failure" ]; then
+                echo "$job_id" >> /tmp/failed_jobs_${run_id}.txt
+            fi
         done
     echo ""
+    
+    # Show logs for failed jobs if requested
+    if [ "$show_failed_logs" = "yes" ] && [ -f "/tmp/failed_jobs_${run_id}.txt" ]; then
+        echo -e "${RED}Failed Jobs Detected - Fetching Logs:${NC}"
+        echo ""
+        
+        while read -r failed_job_id; do
+            get_job_logs "$run_id" "$failed_job_id"
+        done < /tmp/failed_jobs_${run_id}.txt
+        
+        rm -f /tmp/failed_jobs_${run_id}.txt
+    fi
 }
+
+# Get logs for a specific job
+get_job_logs() {
+    local run_id="$1"
+    local job_id="$2"
+    
+    local auth_token
+    auth_token=$(get_auth_token)
+    
+    echo -e "${BLUE}Fetching logs for job ${job_id}...${NC}"
+    
+    if [ "$auth_token" = "gh" ]; then
+        # Use gh CLI to get job logs
+        local job_info
+        job_info=$(gh api "/repos/${REPO}/actions/jobs/${job_id}" 2>/dev/null)
+        local job_name
+        job_name=$(echo "$job_info" | jq -r '.name')
+        
+        echo -e "${YELLOW}Job: ${job_name}${NC}"
+        echo ""
+        
+        # Get the log for this specific job
+        gh api "/repos/${REPO}/actions/jobs/${job_id}/logs" 2>/dev/null | tail -100
+        echo ""
+        echo -e "${YELLOW}(Showing last 100 lines - use 'logs' command for full output)${NC}"
+        echo ""
+    else
+        # Use curl to get job logs
+        local job_info
+        job_info=$(curl -s -H "Authorization: token $auth_token" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "${API_BASE}/repos/${REPO}/actions/jobs/${job_id}")
+        
+        local job_name
+        job_name=$(echo "$job_info" | jq -r '.name')
+        
+        echo -e "${YELLOW}Job: ${job_name}${NC}"
+        echo ""
+        
+        # Get the log for this specific job
+        curl -s -H "Authorization: token $auth_token" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "${API_BASE}/repos/${REPO}/actions/jobs/${job_id}/logs" | tail -100
+        echo ""
+        echo -e "${YELLOW}(Showing last 100 lines - use 'logs' command for full output)${NC}"
+        echo ""
+    fi
+}
+
 
 # Get logs for a workflow run
 get_run_logs() {
@@ -281,7 +354,7 @@ check_status() {
     response=$(api_request "/repos/${REPO}/actions/runs?per_page=50")
     
     # Get unique workflow names and their latest run
-    echo "$response" | jq -r '.workflow_runs | group_by(.name) | .[] | .[0] | "\(.name)\t\(.status)\t\(.conclusion // \"running\")\t\(.id)\t\(.created_at)"' | \
+    echo "$response" | jq -r '.workflow_runs | group_by(.name) | .[] | .[0] | [.name, .status, (.conclusion // "running"), .id, .created_at] | @tsv' | \
         while IFS=$'\t' read -r name status conclusion run_id created; do
             local color=$YELLOW
             case "$conclusion" in
@@ -308,7 +381,7 @@ Usage: $0 <command> [options]
 Commands:
   list                          List all workflows
   runs [workflow] [branch] [n]  List recent workflow runs (default: 10)
-  details <run-id>              Show details of a specific run
+  details <run-id> [no-logs]    Show details of a specific run (shows failed job logs by default)
   logs <run-id> [output-file]   Download logs for a run
   wait <run-id> [timeout]       Wait for a run to complete (default timeout: 3600s)
   status                        Check status of latest runs for all workflows
@@ -317,7 +390,8 @@ Examples:
   $0 list
   $0 runs "Create Release"
   $0 runs "" main 20
-  $0 details 1234567890
+  $0 details 1234567890              # Shows failed job logs automatically
+  $0 details 1234567890 no-logs      # Skip showing failed job logs
   $0 logs 1234567890
   $0 logs 1234567890 release-logs.txt
   $0 wait 1234567890
@@ -360,7 +434,12 @@ main() {
                 usage
                 exit 1
             fi
-            get_run_details "$2"
+            # Check if user wants to skip logs
+            local show_logs="yes"
+            if [ "$3" = "no-logs" ]; then
+                show_logs="no"
+            fi
+            get_run_details "$2" "$show_logs"
             ;;
         logs)
             if [ -z "$2" ]; then
