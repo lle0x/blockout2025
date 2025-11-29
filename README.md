@@ -65,6 +65,10 @@ We're building an international team to make BlockOut II accessible to players w
 
 👉 **[Read CONTRIBUTING.md](CONTRIBUTING.md) to get started!**
 
+### 💡 Looking for Feature Ideas?
+
+Check out our **[Feature Roadmap](docs/FEATURE_ROADMAP.md)** for a comprehensive list of proposed features you can help implement! From beginner-friendly improvements to advanced challenges, there's something for everyone.
+
 ## 📦 Downloads
 
 Get the latest release for your platform from the [Releases page](https://github.com/coderdojo-cordoba/blockout2025/releases):
